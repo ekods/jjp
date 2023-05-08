@@ -50,7 +50,7 @@
 
 <body <?php echo body_class();?>>
 	<?php if ( is_home() ||  is_front_page() ) : ?>
-		<div id="introLoader" class="introloader">
+		<!-- <div id="introLoader" class="introloader">
 			<div class="e-loader">
 				<div class="loaderLoad">
 					<div class="spin"></div>
@@ -61,7 +61,7 @@
 					<?php	}	?>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	<?php endif; ?>
 
 

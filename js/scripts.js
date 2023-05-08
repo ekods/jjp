@@ -129,5 +129,40 @@ $(document).ready(function () {
         prevEl: ".swiper-button-prev",
       },
     });
+
+    var swiperNewsroom = new Swiper(".sliderNewsroom", {
+      autoHeight: true,
+      loop: false,
+      slidesPerView: 1.2,
+      spaceBetween: 16,
+      freeMode: true,
+      loop: false,
+      // autoplay: {
+      //   delay: 2500,
+      //   disableOnInteraction: false,
+      // },
+      keyboard: {
+        enabled: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      breakpoints: {
+        320: {
+          slidesPerView: 1.2,
+        },
+        480: {
+          slidesPerView: 1.2,
+        },
+        769: {
+          slidesPerView: 2.2,
+        },
+      }
+    });
     
 });

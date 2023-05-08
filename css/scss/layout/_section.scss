@@ -5,6 +5,22 @@
 
   }
 
+
+  &Newroom {
+    background-color: var(--grey-1);
+    padding: 42px 0;
+
+    &-head {
+      h5 {
+        color: var(--blue-soft );
+      }
+      
+      h2 {
+        color: var(--primary);
+      }
+    }
+  }
+
 }
 
 
