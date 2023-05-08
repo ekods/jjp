@@ -1,0 +1,98 @@
+.box {
+  &Wrap {
+
+
+  }
+
+  &Nav {
+    @include display-flex();
+    gap: 40px;
+    color: var(--white);
+
+    @media (max-width: $mxtablet) {
+      gap: 20px;
+    }
+
+    @media (max-width: 767px) {
+      flex-direction: column;
+    }
+
+    &-col {
+      flex: 1;
+
+      ul {
+        @include display-flex();
+        flex-direction: column;
+        gap: 8px;
+
+        li {
+
+          i {
+            width: 40px;
+          }
+
+          a {
+            @include font-pack($lh: 1 ,$size: 18px, $weight: 600, $colour: var(--white));
+
+            @media (max-width: $mxtablet) {
+              @include font-pack($size: 16px);
+            }
+          }
+        }
+
+        &.submenu {
+          @include display-flex();
+          gap: 12px;
+          margin-top: 8px;
+
+          @include max-responsive($mntablet) {
+            flex-direction: unset;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+          }
+
+          li {
+            @include display-flex();
+
+            @include max-responsive($mntablet) {
+              width: calc(50% - 12px);
+            }
+
+            a {
+              @include font-pack($lh: 1.4 ,$size: 14px, $weight: 400, $colour: var(--white));
+  
+              @media (max-width: $mxtablet) {
+                @include font-pack($size: 12px);
+              }
+            }
+          }
+        }
+
+      }
+    }
+
+    &-content {
+      p {
+        @include font-pack($size: 12px);
+        margin-bottom: 20px;
+        white-space: pre-wrap;
+        line-height: 1.8;
+      }
+
+      ul {
+        li {
+          @include display-flex();
+          i {
+            font-size: 18px;
+          }
+
+          a {
+            @include display-flex();
+            @include font-pack($lh: 1.6 ,$size: 12px, $weight: 400, $colour: var(--white));
+          }
+        }
+      }
+    }
+
+  }
+}
