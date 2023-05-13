@@ -77,7 +77,7 @@ get_header(); ?>
                                 </div>
                                 <div class="sliderNewsroom-item_thumb">
                                     <div class="thumb-sq">
-                                        <img src="<?php if ( has_post_thumbnail() ) { the_post_thumbnail_url(); }else{ echo get_template_directory_uri().'/images/thumb-default.jpg'; } ?>" alt="">
+                                        <img class="lozad" data-src="<?php if ( has_post_thumbnail() ) { the_post_thumbnail_url(); }else{ echo get_template_directory_uri().'/images/thumb-default.jpg'; } ?>" alt="">
                                     </div>
                                 </div>
                                 <div class="sliderNewsroom-item_content">

@@ -144,6 +144,7 @@
   	wp_enqueue_script( 'js-min', get_template_directory_uri() . '/js/jquery.min.js', array(), THEME_VERSION);
   	wp_enqueue_script( 'js-lozad', get_template_directory_uri() . '/js/lozad.min.js', array(), THEME_VERSION);
   	wp_enqueue_script( 'js-plugins', get_template_directory_uri() . '/js/plugins.js', array(), THEME_VERSION);
+  	wp_enqueue_script( 'js-isotope', get_template_directory_uri() . '/js/isotope.pkgd.js', array(), THEME_VERSION);
 
   	wp_enqueue_script( 'js-scripts', get_template_directory_uri() . '/js/scripts'.MIN.'.js', array(), THEME_VERSION);
 
@@ -232,8 +233,11 @@
 
 
   include( PARTS . '/custom-post/practice-areas.php' );
-  //include( PARTS . '/meta/meta-banner-hero.php' );
+  include( PARTS . '/custom-post/proffesionals.php' );
+
   include( PARTS . '/meta/meta-page-homepage.php' );
+  include( PARTS . '/meta/meta-proffesionals.php' );
+
 
   include( PARTS . '/ajax/news.php' );
 

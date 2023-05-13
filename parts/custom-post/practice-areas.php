@@ -67,19 +67,4 @@
 	}
 	add_action( 'init', 'practice_areas_init' );
 
-
-
-	add_filter('post_type_link', 'projectcategory_permalink_structure', 10, 4);
-	function projectcategory_permalink_structure($post_link, $post, $leavename, $sample) {
-	    if (false !== strpos($post_link, '%practice_areas-category%')) {
-	        $projectscategory_type_term = get_the_terms($post->ID, 'practice_areas-category');
-	        if (!empty($projectscategory_type_term))
-	            $post_link = str_replace('%practice_areas-category%', array_pop($projectscategory_type_term)->
-	            slug, $post_link);
-	        else
-	            $post_link = str_replace('%practice_areas-category%', 'uncategorized', $post_link);
-	    }
-	    return $post_link;
-	}
-
  ?>

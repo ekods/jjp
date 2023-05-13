@@ -6,6 +6,7 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+	transition: all 0.2s ease;
 }
 
 *:focus {
@@ -100,14 +101,26 @@ h1 {
 
 h2 {
   font-size: 32px;
+
+	@media (max-width: $mntablet) {
+		font-size: 28px;
+	}
 }
 
 h3 {
   font-size: 24px;
+
+	@media (max-width: $mntablet) {
+		font-size: 20px;
+	}
 }
 
 h4 {
   font-size: 21px;
+
+	@media (max-width: $mntablet) {
+		font-size: 18px;
+	}
 }
 
 h5 {
@@ -116,6 +129,10 @@ h5 {
 
 h6 {
   font-size: 16px;
+
+	@media (max-width: $mntablet) {
+		font-size: 14px;
+	}
 }
 
 p {
@@ -671,4 +688,14 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+img[data-loaded=true] {
+	opacity: 1;
+}
+
+.lozad {
+	display: block;
+	min-height: 1rem;
+	opacity: 0;
 }

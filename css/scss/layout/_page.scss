@@ -13,4 +13,94 @@
     }
   }
 
+  &Head {
+    padding: 60px 0;
+
+    .dflex {
+      gap: 76px;
+
+      @media (max-width: $mdtablet) {
+        gap: 30px;
+      }
+    }
+
+    .col-50 {
+      flex: 1;
+
+      @media (max-width: $mntablet) {
+        flex: auto;
+      }
+    }
+
+
+    h2 {
+      font-weight: 800;
+      color: var(--secondary);
+    }
+
+    h4 {
+      line-height: 1.6;
+      color: var(--secondary);
+    }
+
+
+
+    select {
+      /* Reset Select */
+      appearance: none;
+      outline: 0;
+      border: 0;
+      box-shadow: none;
+      /* Personalize */
+      flex: 1;
+      @include font-pack($lh: 1.2, $size: 16px, $weight: $font-weight-regular, $colour: var(--primary));
+      background-image: none;
+      background-color: transparent;
+      cursor: pointer;
+
+      @media (max-width: $mntablet) {
+        font-size: 14px;
+      }
+
+          /* Remove IE arrow */
+      &::-ms-expand {
+        display: none;
+      }
+    }
+
+    /* Custom Select wrapper */
+    .filtersBox {      
+      position: relative;
+      display: flex;
+      min-width: 200px;
+      height: 42px;
+      overflow: hidden;
+      border: 1px solid #B4BCC8;
+      border-radius: 5px;
+      padding: 8px 30px 8px 8px;
+      float: left;
+
+      /* Arrow */
+      &::after {
+        content: '';
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        top: 0;
+        right: 0;
+        transition: .25s all ease;
+        pointer-events: none;
+        background-image: url("data:image/svg+xml,%3Csvg width='13' height='10' viewBox='0 0 13 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.6188 0.625H11.3853C11.3014 0.625 11.2224 0.666119 11.1731 0.733555L6.50031 7.17445L1.82754 0.733555C1.77819 0.666119 1.69925 0.625 1.61536 0.625H0.381789C0.27488 0.625 0.212379 0.746713 0.27488 0.833885L6.07432 8.82908C6.28485 9.11856 6.71578 9.11856 6.92466 8.82908L12.7241 0.833885C12.7882 0.746713 12.7257 0.625 12.6188 0.625Z' fill='%238A8B8C'/%3E%3C/svg%3E%0A");
+        background-position: center;
+        background-repeat: no-repeat;
+
+        top: 0;
+        bottom: 0;
+        right: 10px;
+        margin: auto;
+      }
+    }
+
+  }
+
 }
