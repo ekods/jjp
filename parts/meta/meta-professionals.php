@@ -1,20 +1,20 @@
 <?php
 
 
-function add_proffesionals_meta() {
+function add_professionals_meta() {
 
   global $post;
   if(!empty($post))
   {
-    add_meta_box( 'proffesionals', 'Our Team Content', 'meta_proffesionals', 'proffesionals', 'normal', 'high');
-    add_meta_box( 'repeatable-fields', 'Education', 'repeatable_meta_box_proffesionals_education_display', 'proffesionals', 'normal', 'high');
+    add_meta_box( 'professionals', 'Our Team Content', 'meta_professionals', 'professionals', 'normal', 'high');
+    add_meta_box( 'repeatable-fields', 'Education', 'repeatable_meta_box_professionals_education_display', 'professionals', 'normal', 'high');
   }
 
 }
-add_action('add_meta_boxes', 'add_proffesionals_meta', 1);
+add_action('add_meta_boxes', 'add_professionals_meta', 1);
 
 
-  function meta_proffesionals( $post) {
+  function meta_professionals( $post) {
     wp_nonce_field( '_hcf_meta_nonce', 'hcf_meta_nonce' ); ?>
 
     <table class="form-table">
@@ -22,46 +22,46 @@ add_action('add_meta_boxes', 'add_proffesionals_meta', 1);
 
         <tr class="form-field">
           <th scope="row">
-              <label for="proffesionals-contact">Contact</label>
+              <label for="professionals-contact">Contact</label>
           </th>
           <td>
-  					<input id="proffesionals-contact" type="tel" name="proffesionals-contact" value="<?php echo get_post_meta( get_the_ID(), 'proffesionals-contact', true ); ?>">
+  					<input id="professionals-contact" type="tel" name="professionals-contact" value="<?php echo get_post_meta( get_the_ID(), 'professionals-contact', true ); ?>">
           </td>
         </tr>
 
         <tr class="form-field">
           <th scope="row">
-              <label for="proffesionals-languages">Languages</label>
+              <label for="professionals-languages">Languages</label>
           </th>
           <td>
-  					<input id="proffesionals-languages" type="text" name="proffesionals-languages" value="<?php echo get_post_meta( get_the_ID(), 'proffesionals-languages', true ); ?>">
+  					<input id="professionals-languages" type="text" name="professionals-languages" value="<?php echo get_post_meta( get_the_ID(), 'professionals-languages', true ); ?>">
           </td>
         </tr>
 
         <tr class="form-field">
           <th scope="row">
-              <label for="proffesionals-email">Email</label>
+              <label for="professionals-email">Email</label>
           </th>
           <td>
-  					<input id="proffesionals-email" type="email" name="proffesionals-email" value="<?php echo get_post_meta( get_the_ID(), 'proffesionals-email', true ); ?>">
+  					<input id="professionals-email" type="email" name="professionals-email" value="<?php echo get_post_meta( get_the_ID(), 'professionals-email', true ); ?>">
           </td>
         </tr>
 
         <tr class="form-field">
           <th scope="row">
-              <label for="proffesionals-linkedin">Linkedin</label>
+              <label for="professionals-linkedin">Linkedin</label>
           </th>
           <td>
-  					<input id="proffesionals-linkedin" type="url" name="proffesionals-linkedin" value="<?php echo get_post_meta( get_the_ID(), 'proffesionals-linkedin', true ); ?>">
+  					<input id="professionals-linkedin" type="url" name="professionals-linkedin" value="<?php echo get_post_meta( get_the_ID(), 'professionals-linkedin', true ); ?>">
           </td>
         </tr>
 
         <tr class="form-field">
           <th scope="row">
-              <label for="proffesionals-profile">Profile</label>
+              <label for="professionals-profile">Profile</label>
           </th>
           <td>
-            <input name="proffesionals-profile" class="proffesionals-profile" type="text" value="<?php echo get_post_meta( get_the_ID(), 'proffesionals-profile', true ); ?>"  />
+            <input name="professionals-profile" class="professionals-profile" type="text" value="<?php echo get_post_meta( get_the_ID(), 'professionals-profile', true ); ?>"  />
             <br>
             <br>
             <input class="pdf_button button button-small" type="button" value="Upload Profile" /><br/>
@@ -70,10 +70,10 @@ add_action('add_meta_boxes', 'add_proffesionals_meta', 1);
 
         <tr class="form-field">
 					<th scope="row">
-							<label for="proffesionals-speaking_engagements">Speaking Engagements</label>
+							<label for="professionals-speaking_engagements">Speaking Engagements</label>
 					</th>
 					<td>
-            <?php wp_editor( get_post_meta( get_the_ID(), 'proffesionals-speaking_engagements', true ), 'proffesionals-speaking_engagements', array( 'textarea_rows' =>5,	'media_buttons' => false,	'tinymce'          => array(
+            <?php wp_editor( get_post_meta( get_the_ID(), 'professionals-speaking_engagements', true ), 'professionals-speaking_engagements', array( 'textarea_rows' =>5,	'media_buttons' => false,	'tinymce'          => array(
               'wp_autoresize_on'      => true,
               'toolbar1'              => 'bold,italic,underline,link,unlink,bullist',
               'toolbar2'              => '',
@@ -83,11 +83,12 @@ add_action('add_meta_boxes', 'add_proffesionals_meta', 1);
 
 				<tr class="form-field">
 					<th scope="row">
-							<label for="proffesionals-publications">Publications</label>
+							<label for="professionals-publications">Publications</label>
 					</th>
 					<td>
-            <?php wp_editor( get_post_meta( get_the_ID(), 'proffesionals-publications', true ), 'proffesionals-publications', array( 'textarea_rows' =>5,	'media_buttons' => false,	'tinymce'          => array(
+            <?php wp_editor( get_post_meta( get_the_ID(), 'professionals-publications', true ), 'professionals-publications', array( 'textarea_rows' =>5,	'media_buttons' => false,	'tinymce'          => array(
               'wp_autoresize_on'      => true,
+              'wpautop'               => false,
               'toolbar1'              => 'bold,italic,underline,link,unlink,bullist',
               'toolbar2'              => '',
             ),) ); ?>
@@ -141,7 +142,7 @@ add_action('add_meta_boxes', 'add_proffesionals_meta', 1);
       $(document).on('click', '.pdf_button', function (e) {
         e.preventDefault();
         uploadMedia({
-          target: $(this).parent().find(".proffesionals-profile"),
+          target: $(this).parent().find(".professionals-profile"),
           type: 'application/pdf'
         });
       });
@@ -152,7 +153,7 @@ add_action('add_meta_boxes', 'add_proffesionals_meta', 1);
   <?php }
 
 
-  function get_meta_proffesionals( $value ) {
+  function get_meta_professionals( $value ) {
     global $post;
 
     $field = get_post_meta( $post->ID, $value, true );
@@ -167,7 +168,7 @@ add_action('add_meta_boxes', 'add_proffesionals_meta', 1);
   /**
    * Save meta box content.
    */
-  function meta_save_proffesionals( $post_id ) {
+  function meta_save_professionals( $post_id ) {
 
       if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
       if ( $parent_id = wp_is_post_revision( $post_id ) ) {
@@ -176,13 +177,13 @@ add_action('add_meta_boxes', 'add_proffesionals_meta', 1);
       if ( ! isset( $_POST['hcf_meta_nonce'] ) || ! wp_verify_nonce( $_POST['hcf_meta_nonce'], '_hcf_meta_nonce' ) ) return;
 
       $fields = [
-        'proffesionals-contact',
-        'proffesionals-languages',
-        'proffesionals-email',
-        'proffesionals-linkedin',
-        'proffesionals-profile',
-        'proffesionals-speaking_engagements',
-        'proffesionals-publications'
+        'professionals-contact',
+        'professionals-languages',
+        'professionals-email',
+        'professionals-linkedin',
+        'professionals-profile',
+        'professionals-speaking_engagements',
+        'professionals-publications'
       ];
       foreach ( $fields as $field ) {
           if ( array_key_exists( $field, $_POST ) ) {
@@ -192,18 +193,18 @@ add_action('add_meta_boxes', 'add_proffesionals_meta', 1);
        }
 
   }
-  add_action( 'save_post', 'meta_save_proffesionals' );
+  add_action( 'save_post', 'meta_save_professionals' );
 
 
 
 
-function repeatable_meta_box_proffesionals_education_display() {
+function repeatable_meta_box_professionals_education_display() {
   global $post;
-  $proffesionals_education = get_post_meta($post->ID, 'proffesionals_education', true);
-  wp_nonce_field( 'hhs_repeatable_meta_box_nonce_proffesionals_education', 'hhs_repeatable_meta_box_nonce_proffesionals_education' );
+  $professionals_education = get_post_meta($post->ID, 'professionals_education', true);
+  wp_nonce_field( 'hhs_repeatable_meta_box_nonce_professionals_education', 'hhs_repeatable_meta_box_nonce_professionals_education' );
 
 
-  print_r(get_post_meta(get_queried_object_id(), 'proffesionals_education', true));
+  print_r(get_post_meta(get_queried_object_id(), 'professionals_education', true));
 
   ?>
   <style media="screen">
@@ -265,10 +266,10 @@ function repeatable_meta_box_proffesionals_education_display() {
     <?php
 
     $is = 0;
-    if ( $proffesionals_education ) :
+    if ( $professionals_education ) :
 
-      sort($proffesionals_education);
-      foreach ( $proffesionals_education as $field ) {
+      sort($professionals_education);
+      foreach ( $professionals_education as $field ) {
     ?>
       <div class="repeatable-item-wrapper repeatable-item-ex">
         <div class="repeatable-item">
@@ -296,6 +297,15 @@ function repeatable_meta_box_proffesionals_education_display() {
           </div>
           <div class="repeatable-item-value">
             <input type="text" class="widefat" name="subtitle[]" value="<?php if($field['subtitle'] != '') echo esc_attr( $field['subtitle'] ); ?>" />
+          </div>
+        </div>
+
+        <div class="repeatable-item">
+          <div class="repeatable-item-label">
+            Year
+          </div>
+          <div class="repeatable-item-value">
+            <input type="text" class="widefat" name="year[]" value="<?php if($field['year'] != '') echo esc_attr( $field['year'] ); ?>" />
           </div>
         </div>
 
@@ -333,6 +343,15 @@ function repeatable_meta_box_proffesionals_education_display() {
           </div>
           <div class="repeatable-item-value">
             <input type="text" class="widefat" name="subtitle[]" value="" />
+          </div>
+        </div>
+
+        <div class="repeatable-item">
+          <div class="repeatable-item-label">
+            Year
+          </div>
+          <div class="repeatable-item-value">
+            <input type="text" class="widefat" name="year[]" value="" />
           </div>
         </div>
 
@@ -374,6 +393,15 @@ function repeatable_meta_box_proffesionals_education_display() {
         </div>
       </div>
 
+      <div class="repeatable-item">
+        <div class="repeatable-item-label">
+          Year
+        </div>
+        <div class="repeatable-item-value">
+          <input type="text" class="widefat" name="year[]" value="" />
+        </div>
+      </div>
+
       <a class="button remove-row" href="#">Remove</a>
 
     </div>
@@ -412,9 +440,9 @@ function repeatable_meta_box_proffesionals_education_display() {
 }
 
 
-function repeatable_meta_box_proffesionals_education_save($post_id) {
-    if ( ! isset( $_POST['hhs_repeatable_meta_box_nonce_proffesionals_education'] ) ||
-    ! wp_verify_nonce( $_POST['hhs_repeatable_meta_box_nonce_proffesionals_education'], 'hhs_repeatable_meta_box_nonce_proffesionals_education' ) )
+function repeatable_meta_box_professionals_education_save($post_id) {
+    if ( ! isset( $_POST['hhs_repeatable_meta_box_nonce_professionals_education'] ) ||
+    ! wp_verify_nonce( $_POST['hhs_repeatable_meta_box_nonce_professionals_education'], 'hhs_repeatable_meta_box_nonce_professionals_education' ) )
         return;
 
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
@@ -423,12 +451,13 @@ function repeatable_meta_box_proffesionals_education_save($post_id) {
     if (!current_user_can('edit_post', $post_id))
         return;
 
-    $old = get_post_meta($post_id, 'proffesionals_education', true);
+    $old = get_post_meta($post_id, 'professionals_education', true);
     $new = array();
 
     $order = $_POST['order'];
     $title = $_POST['title'];
     $subtitle = $_POST['subtitle'];
+    $year = $_POST['year'];
 
     $count = count( $order );
 
@@ -438,14 +467,15 @@ function repeatable_meta_box_proffesionals_education_save($post_id) {
 
         $new[$i]['title'] = stripslashes( strip_tags( $title[$i] ) );
         $new[$i]['subtitle'] = stripslashes( strip_tags( $subtitle[$i] ) );
+        $new[$i]['year'] = stripslashes( strip_tags( $year[$i] ) );
       endif;
     }
     if ( !empty( $new ) && $new != $old )
-        update_post_meta( $post_id, 'proffesionals_education', $new );
+        update_post_meta( $post_id, 'professionals_education', $new );
 
     elseif ( empty($new) && $old )
-        delete_post_meta( $post_id, 'proffesionals_education', $old );
+        delete_post_meta( $post_id, 'professionals_education', $old );
 }
-add_action('save_post', 'repeatable_meta_box_proffesionals_education_save');
+add_action('save_post', 'repeatable_meta_box_professionals_education_save');
 
 ?>

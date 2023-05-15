@@ -1,0 +1,213 @@
+.practiceareas {
+  &Wrap {
+    position: relative;
+    margin-bottom: 60px;
+    display: inline-table;
+    width: 100%;
+  }
+
+  &List {
+    --gap: 77px;
+    --item: 2;
+
+    @include display-flex();
+    flex-wrap: wrap;
+    gap: var(--gap);
+    row-gap: 20px;
+
+    @media (max-width: $mdtablet) {
+      --gap: 33px;
+    }
+
+    @media (max-width: $mntablet) {
+      --gap: 15px;
+      --item: 1;
+    }
+  }
+
+  &Item {
+    width: calc(100% / var(--item) - var(--gap) + (var(--gap) / var(--item)));
+    position: relative;
+
+    &-img {
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+
+      &::before {
+        content: "";
+        display: block;
+        padding-top: 40%;
+        pointer-events: none;
+      }
+
+      &::after {
+        width: 100%;
+        height: 100%;
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: var(--primary);
+        mix-blend-mode: screen;
+      }
+
+      img {
+        position: absolute;
+        -o-object-fit: cover;
+        object-fit: cover;
+        -o-object-position: center;
+        object-position: center;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+
+        filter: grayscale(1);
+      }
+    }
+
+    &-detail {
+      padding: 8px 0;
+
+      h3 {
+        color: var(--blue);
+        font-weight: 600;
+      }
+
+      h6 {
+        color: var(--blue-soft);
+      }
+    }
+  }
+
+  &Single {
+    @include display-flex();
+    flex-wrap: wrap;
+
+    &-main {
+      width: calc(100% - 250px);
+      padding-right: 100px;
+
+      @media (max-width: $mxtablet) {
+        padding-right: 50px;
+      }
+
+      @media (max-width: $mntablet) {
+        width: 100%;
+        padding-right: 0;
+      }
+    }
+
+    &-sidebar {
+      width: 100%;
+      max-width: 250px;
+      padding-left: 40px;
+      border-left: 1px solid #CAD0D8;
+
+      @media (max-width: $mntablet) {
+        max-width: 100%;
+        width: 100%;
+        padding-left: 0;
+        border-left: 0;
+      }
+
+      .practiceareas {
+        &Item {
+          &-img {
+            &::before {
+              padding-top: 60%;
+            }
+          }
+        }
+
+        &List {
+          &-side {
+            padding-right: 20px;
+            position: relative;
+
+            @media (max-width: $mntablet) {
+              padding-right: 0;
+              padding-bottom: 30px;
+            }
+
+            .swiper-acc {
+              display: none;
+
+              @media (max-width: $mntablet) {
+                display: block;
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+
+  &Professionals {
+    position: relative;
+    width: 100%;
+  }
+
+
+}
+
+.--practiceareasProfessionals {
+  .swiper {
+    &-acc {
+      width: 100px;
+      height: 35px;
+      position: absolute;
+      right: -10px;
+      top: 16px;
+    }
+
+    &-nav {
+      position: absolute;
+      width: 100%;
+      max-width: 105px;
+      top: 0;
+      right: 0;
+
+      @media (max-width: $mstablet) {
+        max-width: 90px;
+      }
+
+      .swiper-button-next,
+      .swiper-button-prev {
+        width: 35px;
+        height: 35px;
+        background-color: var(--white);
+        color: var(--blue);
+        border-radius: 100%;
+        box-shadow: 2px 1px 5px 0px rgba(0,0,0,0.34);
+        -webkit-box-shadow: 2px 1px 5px 0px rgba(0,0,0,0.34);
+        -moz-box-shadow: 2px 1px 5px 0px rgba(0,0,0,0.34);
+
+        @media (max-width: $mstablet) {
+          width: 25px;
+          height: 25px;
+        }
+
+        &::after {
+          font-size: 18px;
+
+          @media (max-width: $mstablet) {
+            font-size: 14px;
+          }
+        }
+      }
+
+      .swiper-button-next {
+        background-color: var(--blue);
+        color: var(--white);
+      }
+    }
+  }
+}

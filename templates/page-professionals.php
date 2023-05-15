@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Template Name: Page Proffesionals
+ * Template Name: Page Professionals
  */
 get_header(); ?>
 
@@ -22,7 +22,7 @@ get_header(); ?>
                 <option value="*">Show All</option>
                 <?php
                 $terms = get_terms( array(
-                  'taxonomy'   => 'proffesionals-category', // Swap in your custom taxonomy name
+                  'taxonomy'   => 'professionals-category', // Swap in your custom taxonomy name
                   'hide_empty' => true, 
                 ));
                 
@@ -44,22 +44,22 @@ get_header(); ?>
         <?php
         //query arguments
         $args = array(
-            'post_type' => 'proffesionals',
+            'post_type' => 'professionals',
             'post_status' => 'publish',
             'posts_per_page' => -1,
             'orderby' => 'taxonomy, term_order', // Just enter 2 parameters here, seprated by comma
             'order'=>'ASC'
         );
-        $proffesionals = new WP_Query( $args );
+        $professionals = new WP_Query( $args );
           
         //loop through query
-        if($proffesionals->have_posts()){
-            while($proffesionals->have_posts()){ 
-                $proffesionals->the_post();
-                $proffesionals_type = get_the_terms(get_the_ID(), 'proffesionals-category');
+        if($professionals->have_posts()){
+            while($professionals->have_posts()){ 
+                $professionals->the_post();
+                $professionals_type = get_the_terms(get_the_ID(), 'professionals-category');
         ?>
           
-          <div class="professionalsItem <?php foreach($proffesionals_type as $type ){ echo $type->slug; } ?>">
+          <div class="professionalsItem <?php foreach($professionals_type as $type ){ echo $type->slug; } ?>">
             <div class="professionalsItem-inner">
               <a href="<?= the_permalink(); ?>">
                 <div class="professionalsItem-img">
@@ -74,17 +74,17 @@ get_header(); ?>
                 </a>  
                 <ul class="professionalsItem-type">
                   <?php
-                    foreach($proffesionals_type as $type ){
+                    foreach($professionals_type as $type ){
                       echo "<li><h6>". $type->name ."</h6></li>";
                     }
                   ?>
                 </ul>
                 <ul class="professionalsItem-connect">
-                  <?php $proffesionals_linkedin = get_post_meta( get_the_ID(), 'proffesionals-linkedin', true);
-                  if(!empty($proffesionals_linkedin)) echo '<li><a href="'. $proffesionals_linkedin .'" target="_blank"><i class="fa-brands fa-linkedin"></i></a></li>'; ?>
+                  <?php $professionals_linkedin = get_post_meta( get_the_ID(), 'professionals-linkedin', true);
+                  if(!empty($professionals_linkedin)) echo '<li><a href="'. $professionals_linkedin .'" target="_blank"><i class="fa-brands fa-linkedin"></i></a></li>'; ?>
                   
-                  <?php $proffesionals_email = get_post_meta( get_the_ID(), 'proffesionals-email', true);
-                  if(!empty($proffesionals_email)) echo '<li><a href="'. $proffesionals_email .'" target="_blank"><i class="fa-solid fa-envelope"></i></a></li>'; ?>
+                  <?php $professionals_email = get_post_meta( get_the_ID(), 'professionals-email', true);
+                  if(!empty($professionals_email)) echo '<li><a href="'. $professionals_email .'" target="_blank"><i class="fa-solid fa-envelope"></i></a></li>'; ?>
                 </ul>
               </div>
             </div>

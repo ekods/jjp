@@ -130,6 +130,10 @@
       border-radius: 10px;
       padding: 24px 16px;
 
+      &:hover {
+        background-color: rgba($color: #374D6C, $alpha: .3);
+      }
+
       &_link {
         @include font-pack($size: 14px, $weight: 400 ,$colour: var(--blue));
         position: relative;
@@ -195,6 +199,25 @@
 
           @media (max-width: $mxtablet) {
             @include font-pack($size: 14px);
+          }
+        }
+      }
+    }
+  }
+
+  &Professionals {
+    padding-top: 32px;
+    padding-bottom: 30px;
+    position: relative;
+  }
+
+  &Practiceareas {
+    &-side{
+      .swiper {
+        &-wrapper {
+          flex-direction: column;
+          @media (max-width: $mntablet) {
+            flex-direction: unset;
           }
         }
       }

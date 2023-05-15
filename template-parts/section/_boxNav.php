@@ -1,7 +1,7 @@
 <div class="boxNav">
   <div class="boxNav-col">
     <div class="brandLogo">
-      <a href="<?php echo esc_url(home_url()) ?>">
+      <a href="<?= esc_url(home_url()) ?>">
         <?php
           $themes_logo = myprefix_get_theme_option( 'themes_logo_secondary' );
           if (!empty( $themes_logo )) { ?>
@@ -25,21 +25,23 @@
     <div class="navOffcanvas-menu">
       <ul>
         <li>
-          <a href="#">Practice Areas</a>
-
-          <?php
-            $terms = get_terms( "practice_areas-category", array(
-              'hide_empty' => false,
-            ) );
-          ?>
+          <a href="<?= esc_url(home_url('practice-areas')) ?>">Practice Areas</a>
           <ul class="submenu">
-            <?php
-            foreach($terms as $term ){; ?>
-            <li>
-              <a href="<?= get_term_link($term->term_id); ?>"><?= $term->name; ?></a>
-            </li>
-            <?php } ?>
+          <?php
+            $page_practice_areas = 88;
+            $child_pages = query_posts('post_per_page=-1&orderby=menu_order&order=asc&post_type=page&post_parent='.$page_practice_areas.'');
+            if ( $child_pages ) :
+                foreach ( $child_pages as $pageChild ) :
+                  ?>
+                    <li>
+                      <a href="<?= get_permalink($pageChild->ID) ?>"><?= $pageChild->post_title; ?></a>
+                    </li>
+                    <?php
+                endforeach;
+            endif;
+          ?>
           </ul>
+
         </li>
       </ul>
     </div>

@@ -232,11 +232,10 @@
   //include( INC . '/hooks/hook-minify.php' );
 
 
-  include( PARTS . '/custom-post/practice-areas.php' );
-  include( PARTS . '/custom-post/proffesionals.php' );
+  include( PARTS . '/custom-post/professionals.php' );
 
   include( PARTS . '/meta/meta-page-homepage.php' );
-  include( PARTS . '/meta/meta-proffesionals.php' );
+  include( PARTS . '/meta/meta-professionals.php' );
 
 
   include( PARTS . '/ajax/news.php' );

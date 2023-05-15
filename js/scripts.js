@@ -46,14 +46,15 @@ $(document).ready(function () {
     $(window).scroll(function () {
       var scrollpos = $(window).scrollTop();
       var hblock = $('.headerInner').outerHeight();
+
       if(scrollpos > hblock) {
-          // $('.js-nav-offset').css({
-          //     'padding-top': hblock,
-          // });
-          $('.headerInner').addClass('scrolled');
+        $('.single-Professionals .js-nav-offset').css({
+            'padding-top': hblock,
+        });
+        $('.headerInner').addClass('scrolled');
       } else {
-          $('.headerInner').removeClass('scrolled');
-          //$('.js-nav-offset').removeAttr('style');
+        $('.headerInner').removeClass('scrolled');
+        $('.single-Professionals .js-nav-offset').removeAttr('style');
       }
     });
   
@@ -166,6 +167,85 @@ $(document).ready(function () {
     });
 
 
+    var swiperProfessionals = new Swiper(".sliderProfessionals", {
+      loop: false,
+      slidesPerView: 2,
+      spaceBetween: 27,
+      loop: true,
+      // autoplay: {
+      //   delay: 2500,
+      //   disableOnInteraction: false,
+      // },
+      keyboard: {
+        enabled: false,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      breakpoints: {
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 15
+        },
+        330: {
+          slidesPerView: 2,
+          spaceBetween: 15
+        },
+        600: {
+          slidesPerView: 3,
+          spaceBetween: 15
+        },
+        769: {
+          slidesPerView: 4,
+        },
+        1080: {
+          slidesPerView: 5,
+        },
+      }
+    });
+    
+
+
+  var init = false;
+
+  function swiperCard() {
+    if (window.innerWidth <= 767) {
+      if (!init) {
+        init = true;
+        swiper = new Swiper(".sliderPracticeareas-side", {
+          direction: "horizontal",
+          slidesPerView: "auto",
+          spaceBetween: 27,
+          slidesPerView: 3,
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+          breakpoints: {
+            320: {
+              slidesPerView: 1,
+              spaceBetween: 15
+            },
+            330: {
+              slidesPerView: 2,
+              spaceBetween: 15
+            },
+            600: {
+              slidesPerView: 3,
+              spaceBetween: 15
+            },
+          }
+        });
+      }
+    } else if (init) {
+      swiper.destroy();
+      init = false;
+    }
+  }
+  swiperCard();
+  window.addEventListener("resize", swiperCard);
+
 
     // init Isotope
     var $grid = $('.--professionalsList-isotope').isotope({
@@ -192,6 +272,16 @@ $(document).ready(function () {
       // use filterFn if matches value
       filterValue = filterFns[ filterValue ] || filterValue;
       $grid.isotope({ filter: filterValue });
+    });
+
+
+    $('.accordionLabel').click(function() {
+        
+      //$(".accordionBody").not($(this).next()).removeClass("accordionBody-open");
+      $(this).next().toggleClass("accordionBody-open");
+      
+      //$(".accordionItem").not($(this).closest(".accordionItem")).removeClass("accordion-open");
+      $(this).closest(".accordionItem").toggleClass("accordion-open");
     });
     
 });

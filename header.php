@@ -72,7 +72,7 @@
 				<div class="headerWrapper">
 					<div class="headerLeft">
 						<div class="brandLogo">
-							<a href="<?php echo esc_url(home_url()) ?>">
+							<a href="<?= esc_url(home_url()) ?>">
 								<?php
 									$themes_logo = myprefix_get_theme_option( 'themes_logo_secondary' );
 									if (!empty( $themes_logo )) { ?>

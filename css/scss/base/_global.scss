@@ -125,9 +125,13 @@ h4 {
 
 h5 {
   font-size: 18px;
+
+	@media (max-width: $mntablet) {
+		font-size: 16px;
+	}
 }
 
-h6 {
+h6, .h6 {
   font-size: 16px;
 
 	@media (max-width: $mntablet) {
@@ -218,6 +222,10 @@ h1, h2, h3, h4, h5, h6 {
   vertical-align: middle;
 }
 
+.justify-space-between {
+	justify-content: space-between;
+}
+
 a {
   text-decoration: none;
   color: #000;
@@ -239,6 +247,10 @@ a {
 
 .alignright {
   text-align: right !important;
+}
+
+.alignjustify {
+  text-align: justify !important;
 }
 
 .nopadding {
@@ -448,16 +460,6 @@ input:focus:-ms-input-placeholder {
 }
 
 
-
-.lozad {
-	opacity: 0;
-	transition: opacity 1000ms ease 100ms;
-}
-
-.lozad[data-loaded] {
-	opacity: 1;
-}
-
 .ov-hidden-fullscreen,
 .ov-hidden {
 	overflow: hidden;
@@ -540,15 +542,19 @@ input:focus:-ms-input-placeholder {
 
 		&b {
 			&-20 {
+				padding-top: 20px;
 				padding-bottom: 20px;
 			}
 			&-40 {
+				padding-top: 40px;
 				padding-bottom: 40px;
 			}
 			&-60 {
+				padding-top: 60px;
 				padding-bottom: 60px;
 			}
 			&-100 {
+				padding-top: 100px;
 				padding-bottom: 100px;
 			}
 		}
@@ -586,6 +592,9 @@ input:focus:-ms-input-placeholder {
 	}
 
 	&t {
+		&-10 {
+			margin-top: 10px;
+		}
 		&-20 {
 			margin-top: 20px;
 		}
@@ -699,3 +708,28 @@ img[data-loaded=true] {
 	min-height: 1rem;
 	opacity: 0;
 }
+
+.fblue {
+	color: var(--blue);
+}
+
+.fblue-soft {
+	color: var(--blue-soft);
+}
+
+.none-mxtablet_2 {
+	display: block;
+
+	@media (max-width: $mxtablet_2) {
+		display: none;
+	}
+}
+
+.display-mxtablet_2 {
+	display: none;
+
+	@media (max-width: $mxtablet_2) {
+		display: block;
+	}
+}
+

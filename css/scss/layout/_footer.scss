@@ -67,7 +67,7 @@
     text-align: right;
     @include font-pack($lh: 1 ,$size: 10px, $colour: var(--white));
     display: inline-table;
-    
+    width: 100%;
     @media (max-width: 767px) {
       text-align: center;
     }

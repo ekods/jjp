@@ -40,15 +40,21 @@
 @import 'layout/footer';
 
 @import 'layout/page';
+@import 'layout/single';
 
 
 // ┌────────────┐
 // │ Components │
 // └────────────┘
+
+@import 'components/icn';
+
 @import 'components/brand';
 @import 'components/search';
 
 @import 'components/box';
+@import 'components/breadcrumbs';
+
 
 @import 'components/hero';
 
@@ -63,8 +69,14 @@
 @import 'components/partner';
 
 @import 'components/about';
-@import 'components/professionals';
+@import 'components/cp_professionals';
+@import 'components/cp_practiceareas';
+
 @import 'components/isotope';
+@import 'components/content';
+@import 'components/sidebar';
+@import 'components/accordion';
+
 
 
 // ┌─────────┐

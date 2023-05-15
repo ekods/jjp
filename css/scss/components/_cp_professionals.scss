@@ -71,6 +71,9 @@
         }
       }
       .professionalsItem-img {
+        transform: scale(1.02);
+        margin-bottom: 10px;
+
         img {
           filter: none;
         }
@@ -92,7 +95,7 @@
     }
 
     &-inner {
-      padding-bottom: 40px;
+      padding-bottom: 45px;
 
       @media (max-width: $mdtablet) {
         padding-bottom: 26px;
@@ -142,7 +145,7 @@
     }
 
     &-detail {
-      padding: 16px 0;
+      padding: 16px 0 5px;
 
       h4 {
         color: var(--primary);
@@ -157,6 +160,8 @@
 
     &-connect {
       position: absolute;
+      bottom: 18px;
+      left: 0;
       @include display-flex();
       flex-wrap: wrap;
       gap: 13px;
