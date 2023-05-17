@@ -386,7 +386,12 @@ if ( ! class_exists( 'WPEX_Theme_Options' ) ) {
 							<th scope="row"><?php esc_html_e( 'Address', 'jjp_themes' ); ?></th>
 							<td>
 								<?php $themes_address = self::get_theme_option( 'themes_address' ); ?>
-								<textarea class="regular-text" type="text" name="theme_options[themes_address]"  style="min-height:150px;height:100%;width:100%;"><?php echo esc_attr( $themes_address ); ?></textarea>
+								<?php wp_editor( $themes_address, 'theme_options[themes_address]', array( 'textarea_rows' =>5,	'media_buttons' => false,	'tinymce'          => array(
+								'wp_autoresize_on'      => true,
+								'wpautop'               => false,
+								'toolbar1'              => 'bold,italic,underline,link,unlink,bullist',
+								'toolbar2'              => '',
+							),) ); ?>
 							</td>
 						</tr>
 

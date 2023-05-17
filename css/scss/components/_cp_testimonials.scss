@@ -1,0 +1,105 @@
+.testimonials {
+  &Wrap {
+    position: relative;
+    padding-bottom: 60px;
+    //display: inline-table;
+    width: 100%;
+  }
+
+  &List {
+
+  }
+
+
+  &Group {
+    --gap: 42px;
+    @include display-flex();
+    flex-wrap: wrap;
+    gap: var(--gap);
+    padding: 60px 0;
+    position: relative;
+    margin-bottom: 40px;
+
+    @media (max-width: $mdtablet) {
+      --gap: 15px;
+    }
+
+    &::after {
+      position: absolute;
+      top: -22px;
+      left: 0;
+      content: attr(data-label);
+      background-color: #E6EBF2;
+      padding: 0 20px;
+      font-size: 32px;
+      color: var(--blue);
+      font-weight: $font-weight-extrabold;
+    }
+
+    &::before {
+      width: 100%;
+      height: 1px;
+      background-color: #B4BCC8;
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+    }
+
+    .testimonialsItem {
+      width: calc(100% / 2 - (var(--gap) / 2));
+      border-radius: 5px;
+      background-color: var(--white);
+      overflow: hidden;
+      padding: 25px 32px;
+      position: relative;
+
+      @media (max-width: $mntablet) {
+        width: 100%;
+      }
+  
+
+      &::after {
+        position: absolute;
+        content: '';
+        pointer-events: none;
+        background-image: url("data:image/svg+xml,%3Csvg width='69' height='51' viewBox='0 0 69 51' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M43.4192 31.5042C43.4192 22.409 45.6032 15.2884 49.9714 10.1424C54.3993 4.9964 60.5924 1.6156 68.5508 0V9.33459C62.5072 11.1895 58.4383 14.5404 56.344 19.3872C55.1473 21.9602 54.6686 24.4435 54.9079 26.8369H68.9996V50.4427H43.4192V31.5042ZM0.875 31.5042C0.875 22.5287 2.99922 15.438 7.24765 10.2321C11.5559 5.02632 17.8089 1.6156 26.0066 0V9.33459C19.9032 11.2494 15.8044 14.5404 13.7101 19.2077C12.633 21.661 12.1842 24.2041 12.3637 26.8369H26.4554V50.4427H0.875V31.5042Z' fill='%230D54B5' fill-opacity='0.15'/%3E%3C/svg%3E%0A");
+        width: 68px;
+        height: 50px;
+        right: 32px;
+        top: 24px;
+      }
+    }
+  }
+
+  &Item {
+
+    &-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 100%;
+      overflow: hidden;
+      padding: 10px;
+      background-color: #C1C1C1;
+      border: 1px solid #B4BCC8;
+
+      .thumb-sq {
+        img {
+          object-fit: contain
+        }
+      }
+    }
+
+    &-detail {
+      @include display-flex();
+      gap: 18px;
+      align-items: center;
+    }
+
+    &-label {
+      @include display-flex();
+      flex-direction: column;
+      gap: 3px;
+    }
+  }
+}

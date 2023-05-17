@@ -526,6 +526,10 @@ input:focus:-ms-input-placeholder {
 
 .p {
 
+	&-0 {
+		padding: 0 !important;
+	}
+
 	&t {
 		&-20 {
 			padding-top: 20px;
@@ -643,6 +647,10 @@ input:focus:-ms-input-placeholder {
 			margin-bottom: 20px;
 		}
 
+		&-30 {
+			margin-bottom: 30px;
+		}
+
 		&-40 {
 			margin-bottom: 40px;
 		}
@@ -709,12 +717,33 @@ img[data-loaded=true] {
 	opacity: 0;
 }
 
+
+.gap-10 {
+	gap: 10px;
+}
+
+.gap-20 {
+	gap: 20px;
+}
+
 .fblue {
 	color: var(--blue);
 }
 
+.fprimary {
+	color: var(--primary);
+}
+
 .fblue-soft {
 	color: var(--blue-soft);
+}
+
+.bgwhite {
+	background-color: var(--white);
+}
+
+.bgblue-soft {
+	background-color: #E6EBF2;
 }
 
 .none-mxtablet_2 {

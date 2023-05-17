@@ -19,7 +19,7 @@ get_header(); ?>
             <div class="filtersBox mt-40">
               <select class="filters-select">
                 <option value="" disabled selected>Filter by Professionals Type</option>
-                <option value="*">Show All</option>
+                <option value="*">All Professionals Type</option>
                 <?php
                 $terms = get_terms( array(
                   'taxonomy'   => 'professionals-category', // Swap in your custom taxonomy name

@@ -4,6 +4,7 @@ html.menu-active {
 
 
 .nav {
+
   &Search {
     a {
       width: 24px;
@@ -15,7 +16,10 @@ html.menu-active {
   } 
 
   &Offcanvas {
+    padding-right: 30px;
+
     @include max-responsive($mntablet) {
+      padding-right: 0;
       height: 100vh;
       overflow: scroll;
       margin-top: 40px;
@@ -23,7 +27,7 @@ html.menu-active {
 
       .brandLogo {
         position: fixed;
-        top: 23px;
+        top: 13px;
       }
     }
   }
@@ -55,6 +59,10 @@ html.menu-active {
 
     @include max-responsive($mxtablet) {
       right: 15px;
+    }
+
+    @include max-responsive($mntablet) {
+      top: -40px;
     }
   }
 
@@ -331,3 +339,8 @@ nav {
   }
 }
 
+.sc {
+  .overlay-slide-left {
+    padding: 13px 0 38px;
+  }
+}

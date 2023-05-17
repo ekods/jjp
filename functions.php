@@ -227,15 +227,19 @@
   }, 10, 3 );
 
 
+  add_filter('wpcf7_autop_or_not', '__return_false');
+
 
   //Minify HTML
   //include( INC . '/hooks/hook-minify.php' );
 
 
   include( PARTS . '/custom-post/professionals.php' );
+  include( PARTS . '/custom-post/testimonials.php' );
 
   include( PARTS . '/meta/meta-page-homepage.php' );
   include( PARTS . '/meta/meta-professionals.php' );
+  include( PARTS . '/meta/meta-page-practice_areas.php' );
 
 
   include( PARTS . '/ajax/news.php' );

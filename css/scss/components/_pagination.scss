@@ -1,0 +1,34 @@
+.pagination {
+  position: relative;
+  width: 100%;
+  text-align: right;
+  padding: 40px 0;
+
+  ul {
+    @include display-flex();
+    justify-content: flex-end;
+    gap: 10px;
+
+    li {
+
+      a {
+        display: inline-table;
+        width: 30px;
+        height: 30px;
+        border-radius: 3px;
+        @include display-flex();
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+      }
+
+      &:hover,
+      &.current-page {
+        a {
+          background-color: var(--blue);
+          color: var(--white);
+        }
+      }
+    }
+  }
+}

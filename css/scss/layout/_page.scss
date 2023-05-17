@@ -4,6 +4,12 @@
 
 
 .page {
+
+  &.parent-pageid-88 {
+    .heroTitle {
+      display: none;
+    }
+  }
   
   &-template {
     &-page {
@@ -73,12 +79,31 @@
       position: relative;
       display: flex;
       min-width: 200px;
+      width: 50%;
       height: 42px;
       overflow: hidden;
       border: 1px solid #B4BCC8;
       border-radius: 5px;
       padding: 8px 30px 8px 8px;
       float: left;
+
+      @include max-responsive($mntablet) {
+        width: 100%;
+      }
+
+      &-wrap {
+        @include display-flex();
+        gap: 10px;
+        flex-wrap: wrap;
+
+        .filtersBox {
+          width: calc(100% / 2 - 10px);
+
+          @include max-responsive($mntablet) {
+            width: 100%;
+          }
+        }
+      }
 
       /* Arrow */
       &::after {
@@ -103,4 +128,205 @@
 
   }
 
+
+  &Contact {
+    padding: 72px 0;
+    position: relative;
+
+    &-wrap {
+      --gap: 116px;
+
+      @include flexbox();
+      gap: var(--gap);
+      flex-wrap: wrap;
+
+      @media (max-width: $mxtablet) {
+        --gap : 80px;
+      }
+
+      @media (max-width: $mntablet) {
+        flex-direction: column;
+        --gap : 40px;
+      }
+    }
+
+    &-col {
+      width: calc(100% / 2 - (var(--gap) / 2));
+
+      @media (max-width: $mntablet) {
+        width: 100%;
+      }
+    }
+
+    &-form {
+      margin: 20px 0;
+      background-color: #DFE3E8;
+      border-radius: 5px;
+      padding: 24px;
+      display: inline-table;
+
+      .wpcf7-submit {
+        background-color: var(--blue);
+        @include font-pack($lh: 1.2, $size: 16px, $weight: $font-weight-extrabold, $colour: var(--white));
+        text-transform: uppercase;
+        padding: 8px 16px;
+        height: 40px;
+      }
+
+      .wpcf7-response-output {
+        float: left;
+        width: 100%;
+        font-size: 14px;
+      }
+
+      label {
+        color: var(--blue-soft);
+        font-size: 16px;
+
+        // @media (max-width: $mntablet) {
+        //   font-size: 14px;
+        // }
+
+        .wpcf7-form-control-wrap {
+          margin-top: 5px;
+          display: inline-table;
+          width: 100%;
+        }
+      }
+
+      textarea,
+      input {
+        padding: 8px 16px;
+        width: 100%;
+        border-radius: 15px;
+        border: 1px solid var(--blue);
+      }
+    }
+
+    &-detail {
+      border-top: 1px solid #B4BCC8;
+      margin-top: 24px;
+      padding-top: 18px;
+
+      .col-md-6 {
+        p {
+          font-size: 18px;
+          white-space: break-spaces;
+
+          @media (max-width: $mntablet) {
+            font-size: 16px;
+          }
+        }
+
+        ul {
+          li {
+            margin-bottom: 10px;
+            a {
+              font-size: 14px;
+              @include flexbox();
+              gap: 10px;
+              align-items: center;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+  &OurFirm {
+    padding: 60px 0;
+    position: relative;
+
+    &.--sectionawards {
+      background-color: #F4F7FB;
+    }
+
+
+    &-wrap {
+      --gap: 100px;
+
+      @include flexbox();
+      flex-wrap: wrap;
+      gap: var(--gap);
+
+      @media (max-width: $mxtablet) {
+        --gap : 50px;
+      }
+
+      @media (max-width: $mntablet) {
+        flex-direction: column;
+        --gap : 40px;
+      }
+    }
+
+    &-col {
+      width: calc(100% / 2 - (var(--gap) / 2));
+
+      @media (max-width: $mntablet) {
+        width: 100%;
+      }
+    }
+
+    &-sub {
+      padding-left: 30px;
+      position: relative;
+
+      h5 {
+        color: #374D6C;
+      }
+
+      &::before {
+        width: 15px;
+        height: 15px;
+        position: absolute;
+        content: '';
+        left: 0;
+        top: 6px;
+        background-color: var(--blue)
+      }
+    }
+  }
+
+}
+
+.download {
+  &Compro {
+    @include flexbox();
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 100%;
+    border-radius: 15px;
+    border: 1px solid var(--blue-soft);
+    font-size: 14px;
+    color: var(--blue);
+    gap: 10px;
+
+    &:hover {
+      background-color: var(--blue-soft);
+      color: var(--white);
+    }
+  }
+}
+
+.btn {
+  &Cta {
+    @include flexbox();
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 100%;
+    border-radius: 15px;
+    border: 1px solid var(--blue);
+    font-size: 14px;
+    color: var(--white);
+    background-color: var(--blue);
+    gap: 10px;
+
+    &:hover {
+      background-color: var(--white);
+      color: var(--blue);
+    }
+  }
 }

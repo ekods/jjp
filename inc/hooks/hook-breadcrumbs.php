@@ -92,8 +92,10 @@ function custom_breadcrumbs() {
 
             if(!empty($category)) {
 
+
                 // Get last category post is in
                 $last_category = end(array_values($category));
+                //print_r(array_values($category));
 
                 // Get parent any categories and create array
                 $get_cat_parents = rtrim(get_category_parents($last_category->term_id, true, ','),',');
@@ -124,7 +126,7 @@ function custom_breadcrumbs() {
             // Check if the post is in a category
             if(!empty($last_category)) {
                 echo $cat_display;
-                echo '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</strong></li>';
+                //echo '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</strong></li>';
 
             // Else if post is in a custom taxonomy
             } else if(!empty($cat_id)) {
@@ -135,8 +137,8 @@ function custom_breadcrumbs() {
 
             }
 
-            echo '<li class="separator"> ' . $separator . ' </li>';
-            echo '<li class="item-current item-' . $post->ID . '"><span class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</span></li>';
+            // echo '<li class="separator"> ' . $separator . ' </li>';
+            // echo '<li class="item-current item-' . $post->ID . '"><span class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</span></li>';
 
         } else if ( is_category() ) {
 

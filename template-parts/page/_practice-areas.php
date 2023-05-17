@@ -169,3 +169,45 @@
     </div>
   </div>
 </div>
+<script>
+
+var init = false;
+
+  function swiperCard() {
+    if (window.innerWidth <= 767) {
+      if (!init) {
+        init = true;
+        swiper = new Swiper(".sliderPracticeareas-side", {
+          direction: "horizontal",
+          slidesPerView: "auto",
+          spaceBetween: 27,
+          slidesPerView: 3,
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+          breakpoints: {
+            320: {
+              slidesPerView: 1,
+              spaceBetween: 15
+            },
+            330: {
+              slidesPerView: 2,
+              spaceBetween: 15
+            },
+            600: {
+              slidesPerView: 3,
+              spaceBetween: 15
+            },
+          }
+        });
+      }
+    } else if (init) {
+      swiper.destroy();
+      init = false;
+    }
+  }
+  swiperCard();
+  window.addEventListener("resize", swiperCard);
+
+</script>

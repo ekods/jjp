@@ -52,9 +52,11 @@ $(document).ready(function () {
             'padding-top': hblock,
         });
         $('.headerInner').addClass('scrolled');
+        $('body').addClass('sc');
       } else {
         $('.headerInner').removeClass('scrolled');
         $('.single-Professionals .js-nav-offset').removeAttr('style');
+        $('body').removeClass('sc');
       }
     });
   
@@ -131,10 +133,33 @@ $(document).ready(function () {
       },
     });
 
+
+    var swiperTestimonials = new Swiper(".sliderTestimonials", {
+      slidesPerView: 1,
+      // effect: "fade",
+      loop: true,
+      // autoplay: {
+      //   delay: 2500,
+      //   disableOnInteraction: false,
+      // },
+      keyboard: {
+        enabled: true,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+
+
     var swiperNewsroom = new Swiper(".sliderNewsroom", {
       autoHeight: true,
       loop: false,
-      slidesPerView: 1.2,
+      slidesPerView: 3.2,
       spaceBetween: 16,
       freeMode: true,
       loop: false,
@@ -161,7 +186,7 @@ $(document).ready(function () {
           slidesPerView: 1.2,
         },
         769: {
-          slidesPerView: 2.2,
+          slidesPerView: 3.2,
         },
       }
     });
@@ -207,44 +232,7 @@ $(document).ready(function () {
     
 
 
-  var init = false;
-
-  function swiperCard() {
-    if (window.innerWidth <= 767) {
-      if (!init) {
-        init = true;
-        swiper = new Swiper(".sliderPracticeareas-side", {
-          direction: "horizontal",
-          slidesPerView: "auto",
-          spaceBetween: 27,
-          slidesPerView: 3,
-          pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-          },
-          breakpoints: {
-            320: {
-              slidesPerView: 1,
-              spaceBetween: 15
-            },
-            330: {
-              slidesPerView: 2,
-              spaceBetween: 15
-            },
-            600: {
-              slidesPerView: 3,
-              spaceBetween: 15
-            },
-          }
-        });
-      }
-    } else if (init) {
-      swiper.destroy();
-      init = false;
-    }
-  }
-  swiperCard();
-  window.addEventListener("resize", swiperCard);
+  
 
 
     // init Isotope
@@ -283,5 +271,67 @@ $(document).ready(function () {
       //$(".accordionItem").not($(this).closest(".accordionItem")).removeClass("accordion-open");
       $(this).closest(".accordionItem").toggleClass("accordion-open");
     });
+
+
+    // init Isotope
+    var $grid_testimonials = $('.--testimonialsList-isotope').isotope({
+      itemSelector: '.testimonialsGroup',
+      layoutMode: 'fitRows'
+    });
+    // filter functions
+    var filterFns_testimonials = {
+      // show if number is greater than 50
+      numberGreaterThan50: function() {
+        var number = $(this).find('.number').text();
+        return parseInt( number, 10 ) > 50;
+      },
+      // show if name ends with -ium
+      ium: function() {
+        var name = $(this).find('.name').text();
+        return name.match( /ium$/ );
+      }
+    };
+    // bind filter on select change
+    $('.filters-select').on( 'change', function() {
+      // get filter value from option value
+      var filterValue = this.value;
+      // use filterFn if matches value
+      filterValue = filterFns_testimonials[ filterValue ] || filterValue;
+      $grid_testimonials.isotope({ filter: filterValue });
+    });
+
+
+    $('.tabsContent').hide();
+    $('.tabsContent:first').show();
+    $('.tabsNav li:first').addClass('active');
+    $('.tabsNav li').click(function(event) {
+
+      $('.tabsNav li').removeClass('active');
+      $(this).addClass('active');
+      $('.tabsContent').hide();
+
+      var selectTab = $(this).find(".tabsNav-at").attr("data-tab");
+      
+
+      $(selectTab).fadeIn();
+    });
+
+
+    $('.filtersBox-page_practice_areas').change(function() {
+        var $option = $(this).find('option:selected');
+        var value = $option.val();
+
+        $('.tabsNav li').removeClass('active');
+
+        $(".tabsNav-at[data-tab = '"+value+"']").parent().addClass('active');
+
+
+        $('.tabsContent').hide();
+        $(value).fadeIn();
+    });
+
+    $('#filterArticle').on('change', function(){
+      window.location = $(this).val();
+   });
     
 });
