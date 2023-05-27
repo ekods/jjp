@@ -22,8 +22,13 @@ get_header(); ?>
                 <option value="*">All Years</option>
                 <?php
                 $terms = get_terms( array(
-                  'taxonomy'   => 'testimonials-year', // Swap in your custom taxonomy name
-                  'hide_empty' => false, 
+                  'taxonomy' => 'testimonials-year', // <-- Custom Taxonomy name..
+                  'orderby'                => 'name',
+                  'order'                  => 'ASC',
+                  'child_of'               => 0,
+                  'parent'                 => 0,
+                  'fields'                 => 'all',
+                  'hide_empty'             => false,
                 ));
                 
                 foreach( $terms as $term ) {
@@ -38,130 +43,94 @@ get_header(); ?>
       </div>
     </div>
 
+
     <div class="testimonialsWrap bgblue-soft">
       <div class="container">
         <div class="testimonialsList --testimonialsList-isotope">
+            <?php
+            $terms = get_terms( array(
+              'taxonomy' => 'testimonials-year', // <-- Custom Taxonomy name..
+              'orderby'                => 'name',
+              'order'                  => 'ASC',
+              'child_of'               => 0,
+              'parent'                 => 0,
+              'fields'                 => 'all',
+              'hide_empty'             => true,
+            ));
             
-            <div class="testimonialsGroup year_2022" data-label="2022">
-                <div class="testimonialsItem">
-                    <div class="testimonialsItem-detail mb-30">
-                        <div class="testimonialsItem-icon">
-                            <div class="thumb-sq">
-                              <img src="<?= get_template_directory_uri() ?>/images/dummy/f90d5ee0e676a44e398e92635ed76a08.png" alt="">
-                            </div>
-                        </div>
-                        <div class="testimonialsItem-label">
-                          <a href="https://www.legal500.com/c/indonesia/intellectual-property/" target="_blank">
-                            <h5 class="fblue extrabold">Legal 500</h5>
-                          </a>
-                          <p>2022</p>
-                        </div>
-                    </div>
-                    <div class="testimonialsItem-content mb-20">
-                      <h4 class="extrabold">"Top Tier" ranking for seven consecutive years. JJP lauded for its "notably strong reputation in litigation" and representation of "a number of household brands in IP disputes" while IP Consultant Juanitasari Winaga has been recognized as a “trade mark prosecution specialist” </h4>
-                    
-                      <div class="content-body mt-20">
-                        <ul>
-                          <li>“Tier 1” ranking for the 7thconsecutive year</li>
-                          <li>JJP described as having an “impressive range of capabilities including the prosecution and litigation of trademarks, in addition to a strong track record in the filing of patent applications.”</li>
-                        </ul>
-                      </div>
-                    </div>
-                    <a href="<?php echo get_the_permalink(); ?>" class="postItem-detail_link">
-                      Read More
-                    </a>
-                </div>
+            foreach( $terms as $term ) { ?>
+            <div class="testimonialsGroup year_<?= $term->name; ?>" data-label="<?= $term->name; ?>" data-id="<?= $term->term_id; ?>">
+              <div class="testimonialsGroup-wrap">
 
+              <?php
+                    global $post;
+                    $args = array( 
+                      'post_type'=> 'testimonials', 
+                      'posts_per_page' => -1,
+                      'tax_query' => array(
+                          array(
+                              'taxonomy' => 'testimonials-year',
+                              'field' => 'term_id',
+                              'terms' => $term->term_id,
+                          ),
+                      ),
+                    );
+                    $the_query = new WP_Query( $args );
+                    if($the_query->have_posts() ) : while ( $the_query->have_posts() ) : $the_query->the_post();
+                    $testimonials_media = get_the_terms(get_the_ID(), 'testimonials-media');
+                    $med_1 = $testimonials_media[0]->term_id;
+                    $testimonials_media_meta = get_option("taxonomy_term_$med_1");
+                ?>
                 <div class="testimonialsItem">
-                    <div class="testimonialsItem-detail mb-30">
-                        <div class="testimonialsItem-icon">
-                            <div class="thumb-sq">
-                              <img src="<?= get_template_directory_uri() ?>/images/dummy/ddf299a76384ccd1ee637f016045b4d3.png" alt="">
-                            </div>
-                        </div>
-                        <div class="testimonialsItem-label">
-                          <a href="https://www.worldtrademarkreview.com/rankings/wtr-1000/profile/firm/januar-jahja-partners" target="_blank">
-                            <h5 class="fblue extrabold">WTR 1000</h5>
-                          </a>
-                          <p>2022</p>
-                        </div>
-                    </div>
-                    <div class="testimonialsItem-content mb-20">
-                      <h4 class="extrabold">Consistently ranked “Gold” for Prosecution and Strategy and “Gold/Highly Recommended” for Enforcement and Litigation. “[W]idely considered one of the strongest IP sides in Indonesia,” with a “strong, powerful, and successful combination” of leaders.</h4>
-                      <div class="content-body mt-20">
-                        <ul>
-                          <li>“Tier 1” ranking for the 7thconsecutive year</li>
-                          <li>JJP described as having an “impressive range of capabilities including the prosecution and litigation of trademarks, in addition to a strong track record in the filing of patent applications.”</li>
-                        </ul>
+                    <div class="testimonialsItem-inner">
+                      <div class="testimonialsItem-detail mb-30">
+                          <div class="testimonialsItem-icon">
+                              <div class="thumb-sq">
+                                <?php
+                                  if(!empty($med_1)){
+                                    echo "<img class='lozad' data-src='" . $testimonials_media_meta['icon_images'] . "' alt='" . $testimonials_media[0]->name . "'>";
+                                  }
+                                ?>
+                              </div>
+                          </div>
+                          <div class="testimonialsItem-label">
+                            <!-- <a href="https://www.legal500.com/c/indonesia/intellectual-property/" target="_blank">
+                              <h5 class="fblue extrabold"><?= the_title(); ?></h5>
+                            </a> -->
+                            <h5 class="fblue extrabold"><?= the_title(); ?></h5>
+                            <p><?= $term->name; ?></p>
+                          </div>
                       </div>
-                    </div>
+                      <div class="testimonialsItem-content mb-20 show-more-height">  
+						  	<h4 class="extrabold">
+							<?php $testimonials_highlight = get_post_meta( get_the_ID(), 'testimonials-highlight', true);
+							if(!empty($testimonials_highlight)) echo htmlspecialchars_decode($testimonials_highlight); ?>
+							</h4>
+                        <div class="content-body mt-20" data-id="<?= $testimonials_media[0]->term_id; ?>">
+                          <?= the_content(); ?>
+                        </div>
+                      </div>
 
-                    <a href="<?php echo get_the_permalink(); ?>" class="postItem-detail_link">
-                      Read More
-                    </a>
+                      <div class="postItem-detail_link show-more">
+                        Read More
+                      </div>
+
+                      <!-- <?php $testimonials_url = get_post_meta( get_the_ID(), 'testimonials-url', true);
+                      if(!empty($testimonials_url)){ ?>
+
+                      <a href="<?= $testimonials_url; ?>" class="postItem-detail_link show-more">
+                        Read More
+                      </a>
+
+                      <?php } ?> -->
+                    </div>
                 </div>
+                <?php  endwhile; endif; ?>
+              
+              </div>
             </div>
-
-            <div class="testimonialsGroup year_2021" data-label="2021">
-                <div class="testimonialsItem">
-                    <div class="testimonialsItem-detail mb-30">
-                        <div class="testimonialsItem-icon">
-                            <div class="thumb-sq">
-                              <img src="<?= get_template_directory_uri() ?>/images/dummy/f90d5ee0e676a44e398e92635ed76a08.png" alt="">
-                            </div>
-                        </div>
-                        <div class="testimonialsItem-label">
-                          <a href="https://www.legal500.com/c/indonesia/intellectual-property/" target="_blank">
-                            <h5 class="fblue extrabold">Legal 500</h5>
-                          </a>
-                          <p>2022</p>
-                        </div>
-                    </div>
-                    <div class="testimonialsItem-content mb-20">
-                      <h4 class="extrabold">"Top Tier" ranking for seven consecutive years. JJP lauded for its "notably strong reputation in litigation" and representation of "a number of household brands in IP disputes" while IP Consultant Juanitasari Winaga has been recognized as a “trade mark prosecution specialist” </h4>
-                    
-                      <div class="content-body mt-20">
-                        <ul>
-                          <li>“Tier 1” ranking for the 7thconsecutive year</li>
-                          <li>JJP described as having an “impressive range of capabilities including the prosecution and litigation of trademarks, in addition to a strong track record in the filing of patent applications.”</li>
-                        </ul>
-                      </div>
-                    </div>
-                    <a href="<?php echo get_the_permalink(); ?>" class="postItem-detail_link">
-                      Read More
-                    </a>
-                </div>
-
-                <div class="testimonialsItem">
-                    <div class="testimonialsItem-detail mb-30">
-                        <div class="testimonialsItem-icon">
-                            <div class="thumb-sq">
-                              <img src="<?= get_template_directory_uri() ?>/images/dummy/ddf299a76384ccd1ee637f016045b4d3.png" alt="">
-                            </div>
-                        </div>
-                        <div class="testimonialsItem-label">
-                          <a href="https://www.worldtrademarkreview.com/rankings/wtr-1000/profile/firm/januar-jahja-partners" target="_blank">
-                            <h5 class="fblue extrabold">WTR 1000</h5>
-                          </a>
-                          <p>2022</p>
-                        </div>
-                    </div>
-                    <div class="testimonialsItem-content mb-20">
-                      <h4 class="extrabold">Consistently ranked “Gold” for Prosecution and Strategy and “Gold/Highly Recommended” for Enforcement and Litigation. “[W]idely considered one of the strongest IP sides in Indonesia,” with a “strong, powerful, and successful combination” of leaders.</h4>
-                      <div class="content-body mt-20">
-                        <ul>
-                          <li>“Tier 1” ranking for the 7thconsecutive year</li>
-                          <li>JJP described as having an “impressive range of capabilities including the prosecution and litigation of trademarks, in addition to a strong track record in the filing of patent applications.”</li>
-                        </ul>
-                      </div>
-                    </div>
-
-                    <a href="<?php echo get_the_permalink(); ?>" class="postItem-detail_link">
-                      Read More
-                    </a>
-                </div>
-            </div>
-
+            <?php } ?>
+          </div>
         </div>
       </div>
     </div>

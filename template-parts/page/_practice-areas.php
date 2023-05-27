@@ -41,6 +41,12 @@
           </div>
 
         </div>
+
+        <div class="share-holder ver-share fl-wrap">
+              <div class="shareTitle">Share</div>
+              <div class="shareContainer isShare"></div>
+          </div>
+
         <?php endwhile; endif; wp_reset_postdata(); ?>
 
       </div>

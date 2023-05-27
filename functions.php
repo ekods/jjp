@@ -240,6 +240,7 @@
   include( PARTS . '/meta/meta-page-homepage.php' );
   include( PARTS . '/meta/meta-professionals.php' );
   include( PARTS . '/meta/meta-page-practice_areas.php' );
+  include( PARTS . '/meta/meta-testimonials.php' );
 
 
   include( PARTS . '/ajax/news.php' );

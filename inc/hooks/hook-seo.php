@@ -22,7 +22,8 @@ function opengraph_tags() {
             $excerpt = strip_tags($excerpt);
             $excerpt = str_replace("", "'", $excerpt);
         }
-    }
+
+			}
     ?>
 
 	<!-- favicon -->
@@ -54,7 +55,7 @@ function opengraph_tags() {
 
 	<!-- meta tag facebook -->
 	<meta name="resource-type" content="document" />
-	<meta property="og:title" content="<?= $title; ?>"/>
+	<meta property="og:title" content="<?php if ( is_home() ||  is_front_page() ) { echo get_bloginfo('name'); }else{ echo $title; }; ?>"/>
 
 
 	<meta property="og:description" content="<?php if ( is_single() ) {

@@ -115,47 +115,49 @@ get_header(); ?>
                                 <!-- Swiper -->
                                 <div class="swiper sliderTestimonials">
                                     <div class="swiper-wrapper">
+                                    <?php
+                                        global $post;
+                                        $args = array( 
+                                            'post_type'=> 'testimonials', 
+                                            'posts_per_page' => 5
+                                        );
+                                        $the_query = new WP_Query( $args );
+                                        if($the_query->have_posts() ) : while ( $the_query->have_posts() ) : $the_query->the_post();
+                                        $testimonials_year = get_the_terms(get_the_ID(), 'testimonials-year');
+                                        $testimonials_media = get_the_terms(get_the_ID(), 'testimonials-media');
 
+                                        $med_1 = $testimonials_media[0]->term_id;
+                                        $testimonials_media_meta = get_option("taxonomy_term_$med_1");
+                                    ?>
                                         <div class="swiper-slide">
-                                            <a href="https://www.legal500.com/c/indonesia/intellectual-property/" target="_blank">
+                                            <a href="#" target="_blank">
                                                 <div class="testimonialsItem">
                                                     <div class="testimonialsItem-content mb-30">
-                                                        <h4 class="extrabold">"Top Tier" ranking for seven consecutive years. JJP lauded for its "notably strong reputation in litigation" and representation of "a number of household brands in IP disputes" while IP Consultant Juanitasari Winaga has been recognized as a “trade mark prosecution specialist” </h4>
+                                                        <h4 class="extrabold">
+														<?php $testimonials_highlight = get_post_meta( get_the_ID(), 'testimonials-highlight', true);
+														if(!empty($testimonials_highlight)) echo htmlspecialchars_decode($testimonials_highlight); ?>
+														</h4>
                                                     </div>
                                                     <div class="testimonialsItem-detail">
                                                         <div class="testimonialsItem-icon">
                                                             <div class="thumb-sq">
-                                                                <img src="<?= get_template_directory_uri() ?>/images/dummy/f90d5ee0e676a44e398e92635ed76a08.png" alt="">
+                                                            <?php
+                                                                if(!empty($med_1)){
+                                                                    echo "<img class='lozad' data-src='" . $testimonials_media_meta['icon_images'] . "' alt='" . $testimonials_media[0]->name . "'>";
+                                                                }
+                                                            ?>
                                                             </div>
                                                         </div>
                                                         <div class="testimonialsItem-label">
-                                                            <h5 class="fblue extrabold">Legal 500</h5>
-                                                            <p>2019</p>
+                                                            <h5 class="fblue extrabold"><?= the_title(); ?></h5>
+                                                            <p><?= $testimonials_year[0]->name;; ?></p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </a>
                                         </div>
-                                        <div class="swiper-slide">
-                                            <a href="https://www.worldtrademarkreview.com/rankings/wtr-1000/profile/firm/januar-jahja-partners" target="_blank">
-                                                <div class="testimonialsItem">
-                                                    <div class="testimonialsItem-content mb-30">
-                                                        <h4 class="extrabold">Consistently ranked “Gold” for Prosecution and Strategy and “Gold/Highly Recommended” for Enforcement and Litigation. “[W]idely considered one of the strongest IP sides in Indonesia,” with a “strong, powerful, and successful combination” of leaders.</h4>
-                                                    </div>
-                                                    <div class="testimonialsItem-detail">
-                                                    <div class="testimonialsItem-icon">
-                                                            <div class="thumb-sq">
-                                                                <img src="<?= get_template_directory_uri() ?>/images/dummy/ddf299a76384ccd1ee637f016045b4d3.png" alt="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="testimonialsItem-label">
-                                                            <h5 class="fblue extrabold">WTR 1000</h5>
-                                                            <p>2021</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
+
+                                    <?php  endwhile; endif; ?>
 
                                     </div>
 
@@ -164,6 +166,7 @@ get_header(); ?>
                                     </div>
                                 </div>
                                 <!-- Swiper End -->
+
                             </div>
                         </div>
                     </div>

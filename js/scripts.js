@@ -41,7 +41,7 @@ $(document).ready(function () {
 
 
 
-  
+
     // scroll
     $(window).scroll(function () {
       var scrollpos = $(window).scrollTop();
@@ -59,8 +59,8 @@ $(document).ready(function () {
         $('body').removeClass('sc');
       }
     });
-  
-  
+
+
     var hamburgerMenu = $("#hamburger-menu");
     var overlay = $("#overlay");
     var html = $("html");
@@ -70,13 +70,13 @@ $(document).ready(function () {
       html.toggleClass("menu-active");
       e.preventDefault();
     });
-  
+
     $(".anchor-nav").on("click", function() {
       //hamburgerMenu.removeClass("active");
       overlay.removeClass("overlay-active");
       html.removeClass("menu-active");
     });
-  
+
 
     $("#hamburger-menu-2").on("click", function(e) {
       //hamburgerMenu.removeClass("active");
@@ -88,19 +88,19 @@ $(document).ready(function () {
 
     $('.openSearch').on('click', function(event){
       event.stopPropagation();
-    
+
       $('.searchBlock').toggleClass('visible');
       $('.searchBlock .searchInput').focus();
     });
-    
+
     $('body').on('click', function(){
       $('.searchBlock').removeClass('visible');
     });
-    
+
     $('.searchBox').on('click', function(event){
       event.stopPropagation();
     });
-    
+
     $('.searchInput').on('keyup', function(event){
       if($(this).val() !== ''){
         $(this).addClass('typing');
@@ -229,10 +229,10 @@ $(document).ready(function () {
         },
       }
     });
-    
 
 
-  
+
+
 
 
     // init Isotope
@@ -264,10 +264,10 @@ $(document).ready(function () {
 
 
     $('.accordionLabel').click(function() {
-        
+
       //$(".accordionBody").not($(this).next()).removeClass("accordionBody-open");
       $(this).next().toggleClass("accordionBody-open");
-      
+
       //$(".accordionItem").not($(this).closest(".accordionItem")).removeClass("accordion-open");
       $(this).closest(".accordionItem").toggleClass("accordion-open");
     });
@@ -276,7 +276,8 @@ $(document).ready(function () {
     // init Isotope
     var $grid_testimonials = $('.--testimonialsList-isotope').isotope({
       itemSelector: '.testimonialsGroup',
-      layoutMode: 'fitRows'
+      resizable: false,
+      animationEngine: 'jquery'
     });
     // filter functions
     var filterFns_testimonials = {
@@ -311,7 +312,7 @@ $(document).ready(function () {
       $('.tabsContent').hide();
 
       var selectTab = $(this).find(".tabsNav-at").attr("data-tab");
-      
+
 
       $(selectTab).fadeIn();
     });
@@ -333,5 +334,24 @@ $(document).ready(function () {
     $('#filterArticle').on('change', function(){
       window.location = $(this).val();
    });
-    
+
+
+   $(".show-more").click(function () {
+      if($(".testimonialsItem-content").hasClass("show-more-height")) {
+          $(this).text("Read Less");
+      } else {
+          $(this).text("Read More");
+      }
+
+      $(this).parent().find('.testimonialsItem-content').toggleClass("show-more-height");
+
+      $(".--testimonialsList-isotope").isotope('layout');
+
+  });
+
+  // Share   ------------------
+  $(".shareContainer").share({
+      networks: ['whatsapp', 'facebook', 'twitter', 'linkedin', 'email']
+  });
+
 });

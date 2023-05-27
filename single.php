@@ -18,6 +18,11 @@
             <?= the_content(); ?>
           </div>
 
+          <div class="share-holder ver-share fl-wrap mb-40">
+              <div class="shareTitle">Share</div>
+              <div class="shareContainer isShare"></div>
+          </div>
+
         </div>
         <?php endwhile; endif; wp_reset_postdata(); ?>
 
@@ -40,10 +45,10 @@
                     'post__not_in' => array ($post->ID),
                 );
                 $relatedPosts = new WP_Query( $args );
-                  
+
                 //loop through query
                 if($relatedPosts->have_posts()){
-                    while($relatedPosts->have_posts()){ 
+                    while($relatedPosts->have_posts()){
                         $relatedPosts->the_post();
                 ?>
                     <div class="swiper-slide">
@@ -57,21 +62,21 @@
                               <?php } ?>
                               </div>
                             </div>
-                          </a>  
+                          </a>
                           <div class="postItem-detail">
                             <div class="postItem-detail_date">
                               <?= the_time( 'M d, Y' ); ?>
                             </div>
                             <p class="extrabold"><?= the_title(); ?></p>
-                              <a href="<?php echo get_the_permalink(); ?>" class="postItem-detail_link">
-                                Read More
+                            <a href="<?php echo get_the_permalink(); ?>" class="postItem-detail_link">
+                              Read More
                             </a>
                           </div>
-                          
+
                         </div>
                       </div>
                     </div>
-                    <?php 
+                    <?php
                   }
                 }
                 wp_reset_postdata(); ?>

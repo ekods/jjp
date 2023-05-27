@@ -17,8 +17,67 @@ add_action('add_meta_boxes', 'add_professionals_meta', 1);
   function meta_professionals( $post) {
     wp_nonce_field( '_hcf_meta_nonce', 'hcf_meta_nonce' ); ?>
 
+    <style media="screen">
+      .panel-practice_areas {
+        min-height: 42px;
+        max-height: 150px;
+        overflow: auto;
+        padding: 0 0.9em;
+        border: solid 1px #dcdcde;
+        background-color: #fff;
+      }
+    </style>
+
     <table class="form-table">
       <tbody>
+
+        <tr class="form-field">
+          <th scope="row">
+              <label for="professionals-practice_areas">Practice Areas</label>
+          </th>
+          <td>
+            <div id="professionals-practice_areas-all" class="panel-practice_areas">
+              <ul id="professionals-practice_areaschecklist" data-wp-lists="list:professionals-category">
+                <?php
+                  // How to use 'get_post_meta()' for multiple checkboxes as array?
+                  $postmeta = maybe_unserialize( get_post_meta( get_the_ID(), 'practice_areas', true ) );
+
+                  $page_practice_areas = 88;
+                  $args = array(
+                    'post_per_page' => -1,
+                    'orderby'       => 'menu_order',
+                    'order'         => 'asc',
+                    'post_type'     => 'page',
+                    'post_parent'   => $page_practice_areas,
+                  );
+
+                  $practice_areas = query_posts($args);
+
+
+                  // Loop through array and make a checkbox for each element
+                  foreach ( $practice_areas as $id => $practice_area) {
+                      // If the postmeta for checkboxes exist and
+                      // this element is part of saved meta check it.
+                      if ( is_array( $postmeta ) && in_array( $practice_area->ID, $postmeta ) ) {
+                          $checked = 'checked="checked"';
+                      } else {
+                          $checked = null;
+                      }
+                      ?>
+
+                      <li id="professionals-practice_areas-<?= $practice_area->ID; ?>" class="practice_areas-category">
+                        <label class="selectit">
+                          <input value="<?= $practice_area->ID; ?>" type="checkbox" name="professionals-practice_areas[]" id="in-professionals-practice_areas-<?= $practice_area->ID; ?>" <?= $checked; ?>> <?= $practice_area->post_title; ?>
+                        </label>
+                      </li>
+
+                      <?php
+                  }
+                 ?>
+        			</ul>
+        		</div>
+          </td>
+        </tr>
 
         <tr class="form-field">
           <th scope="row">
@@ -177,6 +236,7 @@ add_action('add_meta_boxes', 'add_professionals_meta', 1);
       if ( ! isset( $_POST['hcf_meta_nonce'] ) || ! wp_verify_nonce( $_POST['hcf_meta_nonce'], '_hcf_meta_nonce' ) ) return;
 
       $fields = [
+        'professionals-practice_areas',
         'professionals-contact',
         'professionals-languages',
         'professionals-email',
@@ -188,6 +248,14 @@ add_action('add_meta_boxes', 'add_professionals_meta', 1);
       foreach ( $fields as $field ) {
           if ( array_key_exists( $field, $_POST ) ) {
             update_post_meta( $post_id, $field, $_POST[$field] );
+          }
+
+          if ( ! empty( $_POST['professionals-practice_areas'] ) ) {
+              update_post_meta( $post_id, 'practice_areas', $_POST['professionals-practice_areas'] );
+
+          // Otherwise just delete it if its blank value.
+          }else {
+              delete_post_meta( $post_id, 'practice_areas' );
           }
 
        }
@@ -253,7 +321,7 @@ function repeatable_meta_box_professionals_education_display() {
       i++;
       return false;
     });
-    
+
     $(document).on("click", ".remove-row" , function() {
       $(this).parents('.repeatable-item-wrapper').remove();
       return false;

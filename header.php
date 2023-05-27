@@ -6,7 +6,6 @@
 		<link href="//www.google-analytics.com" rel="dns-prefetch">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-		<title><?php echo ($title == '') ? get_bloginfo('name') : $title .' - '. get_bloginfo('name'); ?></title>
 
 		<?php
 			if ( is_archive() && !is_tax() && !is_category() && !is_tag() ) {
@@ -20,9 +19,7 @@
 		}else{
 			$title = wp_title("", false);
 		}?>
-
-		<title><?= $title; ?></title>
-
+		<title><?php echo ($title == '') ? get_bloginfo('name') : $title .' - '. get_bloginfo('name'); ?></title>
 
 
 		<?php
@@ -50,7 +47,7 @@
 
 <body <?php echo body_class();?>>
 	<?php if ( is_home() ||  is_front_page() ) : ?>
-		<!-- <div id="introLoader" class="introloader">
+		<div id="introLoader" class="introloader">
 			<div class="e-loader">
 				<div class="loaderLoad">
 					<div class="spin"></div>
@@ -61,7 +58,7 @@
 					<?php	}	?>
 				</div>
 			</div>
-		</div> -->
+		</div>
 	<?php endif; ?>
 
 

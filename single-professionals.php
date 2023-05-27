@@ -237,6 +237,13 @@
               </div>
             </div>
 
+
+            <div class="share-holder ver-share fl-wrap mb-40">
+                <div class="shareTitle">Share</div>
+                <div class="shareContainer isShare"></div>
+            </div>
+
+
           </div>
         </div>
       </div>
