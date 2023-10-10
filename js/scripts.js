@@ -17,10 +17,40 @@ function introLoader(element,delay) {
 }
 
 var LOADER = new introLoader('#introLoader',500);
+
+
+var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 1,
+});
+
+
 $(window).on('load', function() {
   LOADER.close(function() {
+      $('body').addClass('loaded');
+      
+        var swiper = new Swiper(".mySwiper", {
+          slidesPerView: 1,
+          effect: "fade",
+          loop: true,
+          autoplay: {
+            delay: 6000,
+            disableOnInteraction: false,
+          },
+          keyboard: {
+            enabled: true,
+          },
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+        });
   });
 });
+
 
 
 // Init all functions------------------
@@ -108,40 +138,19 @@ $(document).ready(function () {
         $(this).removeClass('typing');
       }
     });
+    
 
 
-
-
-    var swiper = new Swiper(".mySwiper", {
-      slidesPerView: 1,
-      effect: "fade",
-      loop: true,
-      // autoplay: {
-      //   delay: 2500,
-      //   disableOnInteraction: false,
-      // },
-      keyboard: {
-        enabled: true,
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-    });
 
 
     var swiperTestimonials = new Swiper(".sliderTestimonials", {
       slidesPerView: 1,
       // effect: "fade",
       loop: true,
-      // autoplay: {
-      //   delay: 2500,
-      //   disableOnInteraction: false,
-      // },
+      autoplay: {
+        delay: 6000,
+        disableOnInteraction: false,
+      },
       keyboard: {
         enabled: true,
       },
@@ -158,15 +167,14 @@ $(document).ready(function () {
 
     var swiperNewsroom = new Swiper(".sliderNewsroom", {
       autoHeight: true,
-      loop: false,
       slidesPerView: 3.2,
       spaceBetween: 16,
       freeMode: true,
       loop: false,
-      // autoplay: {
-      //   delay: 2500,
-      //   disableOnInteraction: false,
-      // },
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
       keyboard: {
         enabled: false,
       },
@@ -193,10 +201,9 @@ $(document).ready(function () {
 
 
     var swiperProfessionals = new Swiper(".sliderProfessionals", {
-      loop: false,
       slidesPerView: 2,
       spaceBetween: 27,
-      loop: true,
+      loop: false,
       // autoplay: {
       //   delay: 2500,
       //   disableOnInteraction: false,
@@ -206,7 +213,7 @@ $(document).ready(function () {
       },
       navigation: {
         nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
+        prevEl: ".swiper-button-prev"
       },
       breakpoints: {
         320: {
@@ -223,9 +230,11 @@ $(document).ready(function () {
         },
         769: {
           slidesPerView: 4,
+                    spaceBetween: 15
         },
         1080: {
           slidesPerView: 5,
+                    spaceBetween: 15
         },
       }
     });
@@ -337,10 +346,10 @@ $(document).ready(function () {
 
 
    $(".show-more").click(function () {
-      if($(".testimonialsItem-content").hasClass("show-more-height")) {
-          $(this).text("Read Less");
-      } else {
-          $(this).text("Read More");
+      if ($(this).text() == "Read More") {
+        $(this).text("Read Less");
+      }else{
+        $(this).text("Read More");
       }
 
       $(this).parent().find('.testimonialsItem-content').toggleClass("show-more-height");

@@ -415,8 +415,32 @@ if ( ! class_exists( 'WPEX_Theme_Options' ) ) {
 						</tr>
 					</table>
 
-					
+				
+					<hr>
+					<h2><strong><?php esc_html_e( 'Hero Banner', 'jjp_themes' ); ?></strong></h2>
+					<hr>
 
+					<table class="form-table wpex-custom-admin-login-table">
+						<?php // Category News Updates ?>
+						<tr valign="top">
+							<th scope="row"><?php esc_html_e( 'Banner News Updates', 'jjp_themes' ); ?></th>
+							<td>
+								<?php $hero_banner_news_updates = self::get_theme_option( 'hero_banner_news_updates' ); ?>
+								<input class="button button-small " id="hero_banner_news_updates_file_button" type="button" name="theme_options[hero_banner_news_updates]" value="Upload File" />
+								<input class="set_item_text" id="hero_banner_news_updates_file" name="theme_options[hero_banner_news_updates]" type="hidden" value="<?php echo esc_attr( $hero_banner_news_updates ); ?>" />
+
+								<div class="clear"></div>
+								<img id="meta-image_hero_banner_news_updates-preview" src="<?php echo esc_attr( $hero_banner_news_updates ); ?>" alt="" style="width:300px;margin: 30px 0;">
+								<div class="clear"></div>
+								<?php if (!empty($hero_banner_news_updates)): ?>
+									<a href="#" id="remove_logo_hero_banner_news_updates_file">Remove Hero Banner</a>
+								<?php endif; ?>
+
+							</td>
+						</tr>
+					</table>
+					
+					
 					<hr>
 					<h2><strong><?php esc_html_e( 'Copyright', 'jjp_themes' ); ?></strong></h2>
 					<hr>

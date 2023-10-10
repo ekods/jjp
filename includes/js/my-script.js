@@ -61,6 +61,30 @@ jQuery(document).ready(function($){
       $('#logo_secondary_file').attr('value', '');
       $('#meta-image_secondary-preview').attr('src','');
   });
+	
+	
+	
+	
+  $('#hero_banner_news_updates_file_button').click(function() {
+
+    var send_attachment_bkp = wp.media.editor.send.attachment;
+
+    wp.media.editor.send.attachment = function(props, attachment) {
+      $('#hero_banner_news_updates_file').val(attachment.url);
+      $('#meta-image_hero_banner_news_updates-preview').attr('src',attachment.url);
+      $('#meta-image_hero_banner_news_updates-preview').text(attachment.url);
+      wp.media.editor.send.attachment = send_attachment_bkp;
+    }
+
+    wp.media.editor.open();
+    return false;
+  }); // End on click
+
+
+  $('#remove_hero_banner_news_updates_file').click(function() {
+      $('#hero_banner_news_updates_file').attr('value', '');
+      $('#meta-image_hero_banner_news_updates-preview').attr('src','');
+  });
 
   var editor = CodeMirror.fromTextArea(document.getElementById("themes_js"), {
     lineNumbers: true,

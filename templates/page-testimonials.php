@@ -7,14 +7,24 @@ get_header(); ?>
 
     <?php get_template_part( 'template-parts/section/_hero' ); ?>
 
+
+
+    <?php
+        $side_left = get_post_meta( get_the_ID(), 'head_page-side-left', true);
+        $side_right = get_post_meta( get_the_ID(), 'head_page-side-right', true);
+    ?>
     <div class="pageHead bgblue-soft">
       <div class="container">
         <div class="dflex row">
           <div class="col-50">
-            <h2>An Award-Winning IP Firm with Industry-Leading testimonials.</h2>
+            <?php if(!empty($side_left)): ?>
+            <h2><?= $side_left; ?></h2>
+            <?php endif; ?>
           </div>
-          <div class="col-50">
-            <h4>JJP is routinely recognized as one of the best ranked IP firms in Indonesia. Our testimonials are also the recipients of various recognitions across a wide range of practice areas. Find out more below. </h4>
+          <div class="col-50 alignjustify">
+            <?php if(!empty($side_right)): ?>
+            <h4><?= $side_right; ?></h4>
+            <?php endif; ?>
 
             <div class="filtersBox mt-40">
               <select class="filters-select">
@@ -30,14 +40,14 @@ get_header(); ?>
                   'fields'                 => 'all',
                   'hide_empty'             => false,
                 ));
-                
+
                 foreach( $terms as $term ) {
                   echo '<option value=".year_'. $term->slug .'">'. $term->name .'</option>';
                 }
                 ?>
               </select>
             </div>
-          
+
           </div>
         </div>
       </div>
@@ -57,15 +67,15 @@ get_header(); ?>
               'fields'                 => 'all',
               'hide_empty'             => true,
             ));
-            
+
             foreach( $terms as $term ) { ?>
             <div class="testimonialsGroup year_<?= $term->name; ?>" data-label="<?= $term->name; ?>" data-id="<?= $term->term_id; ?>">
               <div class="testimonialsGroup-wrap">
 
               <?php
                     global $post;
-                    $args = array( 
-                      'post_type'=> 'testimonials', 
+                    $args = array(
+                      'post_type'=> 'testimonials',
                       'posts_per_page' => -1,
                       'tax_query' => array(
                           array(
@@ -78,7 +88,7 @@ get_header(); ?>
                     $the_query = new WP_Query( $args );
                     if($the_query->have_posts() ) : while ( $the_query->have_posts() ) : $the_query->the_post();
                     $testimonials_media = get_the_terms(get_the_ID(), 'testimonials-media');
-                    $med_1 = $testimonials_media[0]->term_id;
+                    $med_1 = isset($testimonials_media[0]->term_id) ? $testimonials_media[0]->term_id : '';
                     $testimonials_media_meta = get_option("taxonomy_term_$med_1");
                 ?>
                 <div class="testimonialsItem">
@@ -101,19 +111,17 @@ get_header(); ?>
                             <p><?= $term->name; ?></p>
                           </div>
                       </div>
-                      <div class="testimonialsItem-content mb-20 show-more-height">  
+                      <div class="testimonialsItem-content mb-20 show-more-height">
 						  	<h4 class="extrabold">
 							<?php $testimonials_highlight = get_post_meta( get_the_ID(), 'testimonials-highlight', true);
 							if(!empty($testimonials_highlight)) echo htmlspecialchars_decode($testimonials_highlight); ?>
 							</h4>
-                        <div class="content-body mt-20" data-id="<?= $testimonials_media[0]->term_id; ?>">
+                        <div class="content-body mt-20" data-id="<?= $med_1; ?>">
                           <?= the_content(); ?>
                         </div>
                       </div>
 
-                      <div class="postItem-detail_link show-more">
-                        Read More
-                      </div>
+                      <div class="postItem-detail_link show-more">Read More</div>
 
                       <!-- <?php $testimonials_url = get_post_meta( get_the_ID(), 'testimonials-url', true);
                       if(!empty($testimonials_url)){ ?>
@@ -126,7 +134,7 @@ get_header(); ?>
                     </div>
                 </div>
                 <?php  endwhile; endif; ?>
-              
+
               </div>
             </div>
             <?php } ?>

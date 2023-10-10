@@ -8,6 +8,7 @@ function add_professionals_meta() {
   {
     add_meta_box( 'professionals', 'Our Team Content', 'meta_professionals', 'professionals', 'normal', 'high');
     add_meta_box( 'repeatable-fields', 'Education', 'repeatable_meta_box_professionals_education_display', 'professionals', 'normal', 'high');
+    add_meta_box( 'repeatable-fields', 'Individual Recognitions', 'repeatable_meta_box_professionals_individual_recognitions_display', 'professionals', 'normal', 'high');
   }
 
 }
@@ -545,5 +546,239 @@ function repeatable_meta_box_professionals_education_save($post_id) {
         delete_post_meta( $post_id, 'professionals_education', $old );
 }
 add_action('save_post', 'repeatable_meta_box_professionals_education_save');
+
+
+
+
+
+
+
+
+function repeatable_meta_box_professionals_individual_recognitions_display() {
+  global $post;
+  $professionals_individual_recognitions = get_post_meta($post->ID, 'professionals_individual_recognitions', true);
+  wp_nonce_field( 'hhs_repeatable_meta_box_nonce_professionals_individual_recognitions', 'hhs_repeatable_meta_box_nonce_professionals_individual_recognitions' );
+
+
+  print_r(get_post_meta(get_queried_object_id(), 'professionals_individual_recognitions', true));
+
+  ?>
+  <style media="screen">
+    .repeatable-item-wrapper {
+      width: 100%;
+      margin-bottom: 30px;
+      float: left;
+      position: relative;
+    }
+
+    .repeatable-item-label {
+      width: 140px;
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    .repeatable-item-value {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .repeatable-item {
+      display: table;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .button.remove-row {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  </style>
+
+  <script type="text/javascript">
+  jQuery(document).ready(function( $ ){
+    var i = $(".repeatable-item-ex").length - 1;
+
+    $(document).on("click", "#add-row" , function() {
+      var row = $( '.empty-row.screen-reader-text.group' ).clone(true);
+          row.removeClass( 'empty-row screen-reader-text group' );
+          row.insertBefore( '#repeatable-fieldset-one .repeatable-item-wrapper:last' );
+          row.find( 'input[name="order[]"]' ).val(i);
+      i++;
+      return false;
+    });
+
+    $(document).on("click", ".remove-row" , function() {
+      $(this).parents('.repeatable-item-wrapper').remove();
+      return false;
+    });
+
+  });
+  </script>
+
+  <div id="repeatable-fieldset-one" width="100%">
+    <?php
+
+    $is = 0;
+    if ( $professionals_individual_recognitions ) :
+
+      sort($professionals_individual_recognitions);
+      foreach ( $professionals_individual_recognitions as $field ) {
+    ?>
+      <div class="repeatable-item-wrapper repeatable-item-ex">
+        <div class="repeatable-item">
+          <div class="repeatable-item-label">
+            Order
+          </div>
+          <div class="repeatable-item-value">
+          <input type="text" class="widefat" name="order[]" value="<?php if($field['order'] != '') echo esc_attr( $field['order'] ); ?>"  style="width: 50px" />
+          </div>
+        </div>
+
+        <div class="repeatable-item">
+          <div class="repeatable-item-label">
+            Title
+          </div>
+          <div class="repeatable-item-value">
+            <input type="text" class="widefat" name="title[]" value="<?php if($field['title'] != '') echo esc_attr( $field['title'] ); ?>" />
+          </div>
+        </div>
+
+        <div class="repeatable-item">
+          <div class="repeatable-item-label">
+            Media
+          </div>
+          <div class="repeatable-item-value">
+            <input type="text" class="widefat" name="media[]" value="<?php if($field['media'] != '') echo esc_attr( $field['media'] ); ?>" />
+          </div>
+        </div>
+
+        <a class="button remove-row" href="#">Remove</a>
+
+      </div>
+
+    <?php
+    }
+    else :
+    // show a blank one
+    ?>
+      <div class="repeatable-item-wrapper repeatable-item-ex">
+        <div class="repeatable-item">
+          <div class="repeatable-item-label">
+            Order
+          </div>
+          <div class="repeatable-item-value">
+            <input type="text" class="widefat" name="order[]" value="<?php echo $is; ?>" style="width: 50px"/>
+          </div>
+        </div>
+
+        <div class="repeatable-item">
+          <div class="repeatable-item-label">
+            Title
+          </div>
+          <div class="repeatable-item-value">
+            <input type="text" class="widefat" name="title[]" value="" />
+          </div>
+        </div>
+
+        <div class="repeatable-item">
+          <div class="repeatable-item-label">
+            Media
+          </div>
+          <div class="repeatable-item-value">
+            <input type="text" class="widefat" name="media[]" value="" />
+          </div>
+        </div>
+
+        <a class="button remove-row" href="#">Remove</a>
+
+      </div>
+
+
+    <?php     $is++;
+    endif; ?>
+
+    <!-- empty hidden one for jQuery -->
+    <div class="repeatable-item-wrapper repeatable-item-ex empty-row screen-reader-text group">
+
+      <div class="repeatable-item">
+        <div class="repeatable-item-label">
+          Order
+        </div>
+        <div class="repeatable-item-value">
+          <input type="text" class="widefat" name="order[]" style="width: 50px"/>
+        </div>
+      </div>
+
+      <div class="repeatable-item">
+        <div class="repeatable-item-label">
+          Title
+        </div>
+        <div class="repeatable-item-value">
+          <input type="text" class="widefat" name="title[]" value="" />
+        </div>
+      </div>
+
+      <div class="repeatable-item">
+        <div class="repeatable-item-label">
+          Media
+        </div>
+        <div class="repeatable-item-value">
+          <input type="text" class="widefat" name="media[]" value="" />
+        </div>
+      </div>
+
+      <a class="button remove-row" href="#">Remove</a>
+
+    </div>
+
+  </div>
+
+  <hr>
+  <hr>
+
+  <p><a id="add-row" class="button" href="#">Add another</a></p>
+
+  <?php
+}
+
+
+function repeatable_meta_box_professionals_individual_recognitions_save($post_id) {
+    if ( ! isset( $_POST['hhs_repeatable_meta_box_nonce_professionals_individual_recognitions'] ) ||
+    ! wp_verify_nonce( $_POST['hhs_repeatable_meta_box_nonce_professionals_individual_recognitions'], 'hhs_repeatable_meta_box_nonce_professionals_individual_recognitions' ) )
+        return;
+
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+        return;
+
+    if (!current_user_can('edit_post', $post_id))
+        return;
+
+    $old = get_post_meta($post_id, 'professionals_individual_recognitions', true);
+    $new = array();
+
+    $order = $_POST['order'];
+    $title = $_POST['title'];
+    $media = $_POST['media'];
+
+    $count = count( $order );
+
+    for ( $i = 0; $i < $count; $i++ ) {
+      if ( $title[$i] != '' ) :
+        $new[$i]['order'] = stripslashes( strip_tags( $order[$i] ) );
+
+        $new[$i]['title'] = stripslashes( strip_tags( $title[$i] ) );
+        $new[$i]['media'] = stripslashes( strip_tags( $media[$i] ) );
+      endif;
+    }
+    if ( !empty( $new ) && $new != $old )
+        update_post_meta( $post_id, 'professionals_individual_recognitions', $new );
+
+    elseif ( empty($new) && $old )
+        delete_post_meta( $post_id, 'professionals_individual_recognitions', $old );
+}
+add_action('save_post', 'repeatable_meta_box_professionals_individual_recognitions_save');
 
 ?>

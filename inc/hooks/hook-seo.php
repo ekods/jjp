@@ -14,8 +14,12 @@ function opengraph_tags() {
         setup_postdata( $post );
         $title = get_the_title();
         $permalink = get_the_permalink();
-        if (has_post_thumbnail($post->ID)) {
-            $img_src = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'large')[0];
+        if( is_array($post) ) {
+
+            if (has_post_thumbnail($post->ID)) {
+                $img_src = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'large')[0];
+            }
+        
         }
         $excerpt = get_the_excerpt();
         if ($excerpt) {

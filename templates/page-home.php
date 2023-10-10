@@ -10,98 +10,93 @@ get_header(); ?>
     <?php while ($the_query -> have_posts()) : $the_query -> the_post();
         $home_slide_fields = get_post_meta( get_the_ID(), 'home_slide', true);
     ?>
-    <section id="heroSlider" class="heroSlider">
+    <section id="heroSlider" class="heroSlider slideN">
         <!-- Swiper -->
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
-            <?php
-            sort($home_slide_fields);
-            foreach ($home_slide_fields as $home_slide): ?>
-            <div class="swiper-slide">
-                <picture>
-                    <?php if(!empty($home_slide['images_mobile'])): ?>
-                    <source media="(max-width: 767px)" srcset="<?php echo $home_slide['images_mobile']; ?>">
-                    <source media="(min-width: 1440px)" srcset="<?php echo $home_slide['images']; ?>">
-                    <?php else: ?>
-                    <source srcset="<?php echo $home_slide['images']; ?>">
-                    <?php endif; ?>
-                    <img src="<?php echo $home_slide['images']; ?>" class="lozad" alt="">
-                </picture>
+				<?php
+				sort($home_slide_fields);
+				foreach ($home_slide_fields as $home_slide): ?>
+				<div class="swiper-slide">
+					<picture>
+						<!-- <?php if(!empty($home_slide['images_mobile'])): ?>
+						<source media="(max-width: 767px)" srcset="<?php echo $home_slide['images_mobile']; ?>">
+						<source media="(min-width: 1440px)" srcset="<?php echo $home_slide['images']; ?>">
+						<?php else: ?>
+						<source srcset="<?php echo $home_slide['images']; ?>">
+						<?php endif; ?> -->
+						<img src="<?php echo $home_slide['images']; ?>" alt="">
+					</picture>
 
-                <div class="heroSlider-content">
-                    <div class="container-fluid">
-                        <?php if(!empty($home_slide['title'])){ echo "<h3>" . $home_slide['title'] . "</h3>"; } ?>
-                        <div class="heroSlider-in">
-                            <?php if(!empty($home_slide['subtitle'])){ echo "<p>" . $home_slide['subtitle'] . "</p>"; } ?>
-                            <?php if(!empty($home_slide['link'])){ echo "<a href='" . $home_slide['link'] . "' class='btn'>VIEW MORE</a>"; } ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <?php endforeach; ?>
+					<div class="heroSlider-content">
+						<div class="container-fluid">
+							<?php if(!empty($home_slide['title'])){ echo "<h3>" . $home_slide['title'] . "</h3>"; } ?>
+							<div class="heroSlider-in">
+								<?php if(!empty($home_slide['subtitle'])){ echo "<p>" . $home_slide['subtitle'] . "</p>"; } ?>
+								<?php if(!empty($home_slide['link'])){ echo "<a href='" . $home_slide['link'] . "' class='btn'>VIEW MORE</a>"; } ?>
+							</div>
+						</div>
+					</div>
+				</div>
+				<?php endforeach; ?>
 
-            <div class="swiper-acc">
-                <div class="swiper-nav">
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                </div>
-                <div class="swiper-pagination"></div>
-            </div>
-        </div>
+				<div class="swiper-acc">
+					<div class="swiper-nav">
+						<div class="swiper-button-next"></div>
+						<div class="swiper-button-prev"></div>
+					</div>
+					<div class="swiper-pagination"></div>
+				</div>
+        	</div>
+		</div>
     </section>
     <?php endwhile;?>
 
     <section class="sectionSc1">
         <div class="container-fluid">
             <div class="row sectionSc1-wrap">
+              <?php $frontpage_id = get_option( 'page_on_front' ); ?>
+              <?php $the_query = new WP_Query ( "page_id= $frontpage_id" ); ?>
+              <?php while ($the_query -> have_posts()) : $the_query -> the_post();
+                  $pillar_fields = get_post_meta( get_the_ID(), 'pillar', true);
+              ?>
                 <div class="sectionSc1-intro col-md-6">
                     <div class="container">
-                        <h2 class="extrabold fprimary mb-20">Why Clients Trust Us.</h2>
 
+                        <?php if(!empty(get_post_meta( get_the_ID(), 'pilar_h-title', true))){ echo '<h2 class="extrabold fprimary mb-20">'. get_post_meta( get_the_ID(), 'pilar_h-title', true) .'</h2>'; } ?>
+                        <?php if(!empty(get_post_meta( get_the_ID(), 'pilar_h-subtitle', true))){ ?>
                         <div class="content-body alignjustify">
-                            <p>Established in 1986, Januar Jahja & Partners is one of the leading Intellectual Property law firms in all of Indonesia. Our firm is also one of the best reviewed and most highly ranked by such outlets as Legal 500, WTR 1000, IAM Patent 1000, Managing IP, and Chambers Asia Pacific among others. We are experienced working with clients from all over the world ranging from established multinationals to nimble start-ups across a wide range of sectors and industries.</p>
-
-                            <p>We are led by industry-setting professionals with particular expertise in assisting clients to navigate the promising but sometimes confusing Indonesian IP scene. Our deep understanding of local law and practice as well as our strong working relationship with the Indonesian Intellectual Property Office (DGIP) are the foundational pillars that support our vibrant practice. And as a one-stop IP shop, we are able to handle all aspects of our clients’ IP needs, including civil enforcement, investigations, dispute resolution, and of course IP litigation, having litigated some of the biggest and most historic IP cases in Indonesia.</p>
+                            <?= get_post_meta( get_the_ID(), 'pilar_h-subtitle', true); ?>
                         </div>
+                        <?php } ?>
+
+                        <br>
+                        <br>
 
                         <div class="sectionSc1-point">
+                          <?php
+                          sort($pillar_fields);
+                          foreach ($pillar_fields as $pillar): ?>
                             <div class="sectionSc1-point-item">
                                 <div class="sectionSc1-point-icon">
-                                    <img src="<?= get_template_directory_uri() ?>/images/svg/point-1.svg" alt="">
+                                  <img src="<?php echo $pillar['pillar_images']; ?>" alt="<?php if(!empty($pillar['pillar_title'])){ echo "<h2>" . $pillar['pillar_title'] . "</h2>"; } ?>">
                                 </div>
-                                <h2>700+</h2>
-                                <p>Active clients</p>
+                                <?php if(!empty($pillar['pillar_title'])){ echo "<h2>" . $pillar['pillar_title'] . "</h2>"; } ?>
+                                <?php if(!empty($pillar['pillar_subtitle'])){ echo "<p>" . $pillar['pillar_subtitle'] . "</p>"; } ?>
                             </div>
-                            <div class="sectionSc1-point-item">
-                                <div class="sectionSc1-point-icon">
-                                    <img src="<?= get_template_directory_uri() ?>/images/svg/point-2.svg" alt="">
-                                </div>
-                                <h2>40+</h2>
-                                <p>Active Client Jurisdictions</p>
-                            </div>
-                            <div class="sectionSc1-point-item">
-                                <div class="sectionSc1-point-icon">
-                                    <img src="<?= get_template_directory_uri() ?>/images/svg/point-3.svg" alt="">
-                                </div>
-                                <h2>35+</h2>
-                                <p>Dedicated Staff & Professionals</p>
-                            </div>
-                            <div class="sectionSc1-point-item">
-                                <div class="sectionSc1-point-icon">
-                                    <img src="<?= get_template_directory_uri() ?>/images/svg/point-4.svg" alt="">
-                                </div>
-                                <h2>2x <span>Winner</span></h2>
-                                <p>IP Firm of the Year by Managing IP (2021, 2022)</p>
-                            </div>
+                          <?php endforeach; ?>
+
                         </div>
 
                     </div>
                 </div>
+                <?php endwhile;?>
+
                 <div class="sectionSc1-testimonial col-md-6 half-right">
                     <div class="container">
                         <div class="sectionSc1-testimonial-head">
                             <a href="<?= esc_url(home_url('testimonials')) ?>">
-                                <h5 class="fblue">View Our Testimonial</h5>
+                                <h5 class="fblue">View Our Testimonials</h5>
                             </a>
                         </div>
 
@@ -111,108 +106,40 @@ get_header(); ?>
                                     <h5>What Our Clients Say</h5>
                                 </div>
                             </div>
+
                             <div class="w-100 mt-20">
-                                <!-- Swiper -->
-                                <div class="swiper sliderTestimonials">
-                                    <div class="swiper-wrapper">
-                                    <?php
-                                        global $post;
-                                        $args = array( 
-                                            'post_type'=> 'testimonials', 
-                                            'posts_per_page' => 5
-                                        );
-                                        $the_query = new WP_Query( $args );
-                                        if($the_query->have_posts() ) : while ( $the_query->have_posts() ) : $the_query->the_post();
-                                        $testimonials_year = get_the_terms(get_the_ID(), 'testimonials-year');
-                                        $testimonials_media = get_the_terms(get_the_ID(), 'testimonials-media');
-
-                                        $med_1 = $testimonials_media[0]->term_id;
-                                        $testimonials_media_meta = get_option("taxonomy_term_$med_1");
-                                    ?>
-                                        <div class="swiper-slide">
-                                            <a href="#" target="_blank">
-                                                <div class="testimonialsItem">
-                                                    <div class="testimonialsItem-content mb-30">
-                                                        <h4 class="extrabold">
-														<?php $testimonials_highlight = get_post_meta( get_the_ID(), 'testimonials-highlight', true);
-														if(!empty($testimonials_highlight)) echo htmlspecialchars_decode($testimonials_highlight); ?>
-														</h4>
-                                                    </div>
-                                                    <div class="testimonialsItem-detail">
-                                                        <div class="testimonialsItem-icon">
-                                                            <div class="thumb-sq">
-                                                            <?php
-                                                                if(!empty($med_1)){
-                                                                    echo "<img class='lozad' data-src='" . $testimonials_media_meta['icon_images'] . "' alt='" . $testimonials_media[0]->name . "'>";
-                                                                }
-                                                            ?>
-                                                            </div>
-                                                        </div>
-                                                        <div class="testimonialsItem-label">
-                                                            <h5 class="fblue extrabold"><?= the_title(); ?></h5>
-                                                            <p><?= $testimonials_year[0]->name;; ?></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                    <?php  endwhile; endif; ?>
-
-                                    </div>
-
-                                    <div class="swiper-acc">
-                                        <div class="swiper-pagination"></div>
-                                    </div>
-                                </div>
-                                <!-- Swiper End -->
-
+                              <?php get_template_part( 'template-parts/parts/_sliderTestimonials' ); ?>
                             </div>
                         </div>
                     </div>
-                </div>  
+                </div>
             </div>
         </div>
     </section>
 
+
+    <?php $frontpage_id = get_option( 'page_on_front' ); ?>
+    <?php $the_query = new WP_Query ( "page_id= $frontpage_id" ); ?>
+    <?php while ($the_query -> have_posts()) : $the_query -> the_post();
+        $member_fields = get_post_meta( get_the_ID(), 'member', true);
+        $rangked_fields = get_post_meta( get_the_ID(), 'rangked', true);
+    ?>
     <section class="sectionSc2">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 mb-20">
-                    <h6 class="fprimary">MEMBER OF</h6>
-
+                  <h6 class="fprimary">MEMBER OF</h6>
                     <div class="sectionSc2-list">
-                        <ul>
+                      <ul>
+                          <?php
+                          sort($member_fields);
+                          foreach ($member_fields as $member): ?>
                             <li>
-                                <a href="#">
-                                    <img src="<?= get_template_directory_uri() ?>/images/dummy/bc749caf76456279c7775de64423783c.png" alt="">
-                                </a>
+                                <?php if(!empty($member['link_member'])){ echo "<a href=". $member['link_member'] .">"; } ?>
+                                    <img src="<?php echo $member['images_member']; ?>" alt="">
+                                <?php if(!empty($member['link_member'])){ echo "</a>"; } ?>
                             </li>
-                            <li>
-                                <a href="#">
-                                    <img src="<?= get_template_directory_uri() ?>/images/dummy/bcfa85c32d48cca42c2ca19c2a845550.png" alt="">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="<?= get_template_directory_uri() ?>/images/dummy/ab011c32cb6311baf6ae1a5ebc2de206.png" alt="">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="<?= get_template_directory_uri() ?>/images/dummy/18dd47b187f2afc65fdbd8f06fc8064d.png" alt="">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="<?= get_template_directory_uri() ?>/images/dummy/3a74c0dfba340d56b1f9763bf1543f14.png" alt="">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="<?= get_template_directory_uri() ?>/images/dummy/828f8ea791f6a038a2eb59059f47b69a.png" alt="">
-                                </a>
-                            </li>
+                          <?php endforeach; ?>
                         </ul>
                     </div>
                 </div>
@@ -221,37 +148,23 @@ get_header(); ?>
 
                     <div class="sectionSc2-list">
                     <ul>
-                            <li>
-                                <a href="#">
-                                    <img src="<?= get_template_directory_uri() ?>/images/dummy/f90d5ee0e676a44e398e92635ed76a08.png" alt="">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="<?= get_template_directory_uri() ?>/images/dummy/ddf299a76384ccd1ee637f016045b4d3.png" alt="">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="<?= get_template_directory_uri() ?>/images/dummy/7c09ab972c9430dcc69c161f188dc010.png" alt="">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="<?= get_template_directory_uri() ?>/images/dummy/9e69a2f5817c0049c50e3df0fa2adcc0.png" alt="">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="<?= get_template_directory_uri() ?>/images/dummy/109f4c430d08c131e1c648438355265c.png" alt="">
-                                </a>
-                            </li>
+                      <?php
+                      sort($rangked_fields);
+                      foreach ($rangked_fields as $rangked): ?>
+                        <li>
+                            <?php if(!empty($rangked['link_rangked'])){ echo "<a href=". $rangked['link_rangked'] .">"; } ?>
+                                <img src="<?php echo $rangked['images_rangked']; ?>" alt="">
+                            <?php if(!empty($rangked['link_rangked'])){ echo "</a>"; } ?>
+                        </li>
+                      <?php endforeach; ?>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <?php endwhile;?>
+
 
     <section class="sectionProfessionals">
         <div class="container">
@@ -269,17 +182,17 @@ get_header(); ?>
                     'post_status' => 'publish',
                     'posts_per_page' => 4,
                     'orderby' => 'taxonomy, term_order', // Just enter 2 parameters here, seprated by comma
-                    'order'=>'ASC'
+                    'order'=>'DESC'
                 );
                 $professionals = new WP_Query( $args );
-                
+
                 //loop through query
                 if($professionals->have_posts()){
-                    while($professionals->have_posts()){ 
+                    while($professionals->have_posts()){
                         $professionals->the_post();
                         $professionals_type = get_the_terms(get_the_ID(), 'professionals-category');
                 ?>
-                
+
                 <div class="professionalsItem <?php foreach($professionals_type as $type ){ echo $type->slug; } ?>">
                     <div class="professionalsItem-inner">
                     <a href="<?= the_permalink(); ?>">
@@ -292,7 +205,7 @@ get_header(); ?>
                     <div class="professionalsItem-detail">
                         <a href="<?= the_permalink(); ?>">
                         <h4><?= the_title(); ?></h4>
-                        </a>  
+                        </a>
                         <ul class="professionalsItem-type">
                         <?php
                             foreach($professionals_type as $type ){
@@ -303,7 +216,7 @@ get_header(); ?>
                         <ul class="professionalsItem-connect">
                         <?php $professionals_linkedin = get_post_meta( get_the_ID(), 'professionals-linkedin', true);
                         if(!empty($professionals_linkedin)) echo '<li><a href="'. $professionals_linkedin .'" target="_blank"><i class="fa-brands fa-linkedin"></i></a></li>'; ?>
-                        
+
                         <?php $professionals_email = get_post_meta( get_the_ID(), 'professionals-email', true);
                         if(!empty($professionals_email)) echo '<li><a href="'. $professionals_email .'" target="_blank"><i class="fa-solid fa-envelope"></i></a></li>'; ?>
                         </ul>
@@ -311,7 +224,7 @@ get_header(); ?>
                     </div>
                 </div>
 
-                <?php 
+                <?php
                     }
                 }
                 wp_reset_postdata(); ?>
@@ -384,7 +297,7 @@ get_header(); ?>
                         </div>
                     </div>
 
-                
+
                     <div class="tabsContainer">
                         <?php
                             $page_practice_areas = 88;
@@ -407,8 +320,14 @@ get_header(); ?>
                                     <?php $practice_areas_title = get_post_meta( $pageChild->ID, 'practice_areas-title', true);
                                     if(!empty($practice_areas_title)) echo "<h2>" . $practice_areas_title . "</h2>"; ?>
 
-                                    <?php $practice_areas_content = get_post_meta( $pageChild->ID, 'practice_areas-content', true);
-                                    if(!empty($practice_areas_content)) echo htmlspecialchars_decode($practice_areas_content); ?>
+                                    <div class="w-100 mb-30">
+                                        <?php $practice_areas_content = get_post_meta( $pageChild->ID, 'practice_areas-content', true);
+                                        if(!empty($practice_areas_content)) echo htmlspecialchars_decode($practice_areas_content); ?>
+                                    </div>
+
+                                    <a class="postArticle-item_link" href="<?php echo get_the_permalink($pageChild->ID); ?>">
+                                        Read More
+                                    </a>
                                 </div>
                                 <div class="sectionPracticeareas-thumb">
                                     <div class="sectionPracticeareas-img">
@@ -444,7 +363,7 @@ get_header(); ?>
                     <div class="swiper-wrapper">
                         <?php
                             global $post;
-                            $args = array( 'post_type'=> 'post', 'posts_per_page' => 10 );
+                            $args = array( 'post_type'=> 'post', 'posts_per_page' => 7,   'orderby' => 'date', 'order'          => 'ASC', );
                             $the_query = new WP_Query( $args );
                             if($the_query->have_posts() ) : while ( $the_query->have_posts() ) : $the_query->the_post();
                         ?>

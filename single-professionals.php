@@ -3,11 +3,12 @@
 
   <div class="singleWrap">
     <div class="container">
-      
+
       <?php custom_breadcrumbs(); ?>
 
-      <?php if(have_posts()) : while(have_posts())  : the_post(); 
+      <?php if(have_posts()) : while(have_posts())  : the_post();
         $professionals_type = get_the_terms(get_the_ID(), 'professionals-category');
+        $professionals_practice_areas = get_the_terms(get_the_ID(), 'professionals-practice_areas');
       ?>
 
       <div class="singleProfessionals">
@@ -59,12 +60,12 @@
                   <h6>
                     <a href="mailto:<?= get_post_meta( get_the_ID(), 'professionals-email', true); ?>">
                       <?= get_post_meta( get_the_ID(), 'professionals-email', true); ?>
-                    </a>  
+                    </a>
                   </h6>
                 </div>
               <?php } ?>
 
-              <?php 
+              <?php
               $professionals_profile = get_post_meta( get_the_ID(), 'professionals-profile', true);
               $professionals_linkedin = get_post_meta( get_the_ID(), 'professionals-linkedin', true);
               if(!empty ($professionals_profile || $professionals_linkedin)){ ?>
@@ -76,15 +77,15 @@
                     <a class="h6" href="<?= $professionals_linkedin; ?>" target="_blank">
                       <span class="icn icn-likedin"></span>
                       <span class="icn-label">LinkedIn</span>
-                    </a>  
+                    </a>
                   <?php } ?>
 
                   <?php
                     if(!empty($professionals_profile)){ ?>
-                    <a class="h6" href="<?= $professionals_profile; ?>">
-                      <span class="icn icn-pdf"></span>
-                      <span class="icn-label">Download Profile</span>
-                    </a> 
+                    <!--<a class="h6" href="<?= $professionals_profile; ?>">-->
+                    <!--  <span class="icn icn-pdf"></span>-->
+                    <!--  <span class="icn-label">Download Profile</span>-->
+                    <!--</a>-->
                   <?php } ?>
                   </div>
                 </div>
@@ -93,7 +94,7 @@
 
               <?php
                 $professionals_education = get_post_meta( get_the_ID(), 'professionals_education', true);
-                if(!empty($professionals_education)){ 
+                if(!empty($professionals_education)){
               ?>
                 <div class="w-100 pt-20 display-mxtablet_2">
                   <h4 class="extrabold fblue-soft mb-10">Education</h4>
@@ -106,9 +107,9 @@
                     </div>
                   <?php } ?>
                 </div>
-              <?php 
+              <?php
               } ?>
-              
+
             </div>
 
           </div>
@@ -123,13 +124,13 @@
 
             <?php if(!empty (get_post_meta( get_the_ID(), 'professionals-speaking_engagements', true))){ ?>
               <div class="w-100 mb-20 pb-20 --contentSpeaking_engagements">
-                
-                <div class="accordionItem">
+
+                <div class="accordionItem accordion-open">
                   <div class="accordionLabel">
                     <h3 class="extrabold fblue-soft mb-10">Speaking Engagements</h3>
                   </div>
 
-                  <div class="accordionBody content-body">
+                  <div class="accordionBody content-body accordionBody-open content-body">
                     <?= htmlspecialchars_decode(get_post_meta( get_the_ID(), 'professionals-speaking_engagements', true )); ?>
                   </div>
                 </div>
@@ -138,13 +139,13 @@
 
             <?php if(!empty (get_post_meta( get_the_ID(), 'professionals-publications', true))){ ?>
               <div class="w-100 mb-20 pb-20 --contentPublications">
-                
-                <div class="accordionItem">
+
+                <div class="accordionItem accordion-open">
                   <div class="accordionLabel">
                     <h3 class="extrabold fblue-soft mb-10">Publications</h3>
                   </div>
 
-                  <div class="accordionBody content-body">
+                  <div class="accordionBody content-body accordionBody-open content-body">
                     <?= htmlspecialchars_decode(get_post_meta( get_the_ID(), 'professionals-publications', true )); ?>
                   </div>
                 </div>
@@ -155,7 +156,7 @@
           <div class="singleProfessionals-col3">
             <?php
               $professionals_education = get_post_meta( get_the_ID(), 'professionals_education', true);
-              if(!empty($professionals_education)){ 
+              if(!empty($professionals_education)){
             ?>
               <div class="w-100 mb-20 pb-20 none-mxtablet_2">
                 <h4 class="extrabold fblue-soft mb-10">Education</h4>
@@ -168,7 +169,7 @@
                   </div>
                 <?php } ?>
               </div>
-            <?php 
+            <?php
             } ?>
           <?php endwhile; endif; wp_reset_postdata(); ?>
 
@@ -179,14 +180,13 @@
                 <div class="sidebarPracticeAreas">
                   <ul>
                   <?php
-                    $page_practice_areas = 88;
-                    $child_pages = query_posts('post_per_page=-1&orderby=menu_order&order=asc&post_type=page&post_parent='.$page_practice_areas.'');
-                    if ( $child_pages ) :
-                        foreach ( $child_pages as $pageChild ) :
+                    $practice_areas = get_post_meta( get_the_ID(), 'professionals-practice_areas', true);
+                    if ( $practice_areas ) :
+                        foreach ( $practice_areas as $practice_area_id ) :
                           ?>
                             <li>
-                              <a href="<?= get_permalink($pageChild->ID) ?>">
-                                <h5><?= $pageChild->post_title; ?></h5>
+                              <a href="<?= get_permalink($practice_area_id) ?>">
+                                <h5><?= get_the_title($practice_area_id); ?></h5>
                               </a>
                             </li>
                             <?php
@@ -197,48 +197,34 @@
                 </div>
               </div>
 
-              <div class="col-md-12 col-sm-6 mb-20 pb-20">
-                <h4 class="extrabold fblue-soft mb-10">Individual Recognitions</h4>
-
+              <?php
+                $individual_recognitions = get_post_meta( get_the_ID(), 'professionals_individual_recognitions', true);
+                if ( $individual_recognitions ) : ?>
                 <div class="sidebarArticle">
-                  <ul>
-                    <li>
-                      <a href="#">
-                        <h6>Top 250 Women in IP, Managing IP</h6>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <h6>Top 100 Lawyers in Indonesia, Asia Business Law Journal</h6>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <h6>Shortlisted, IP Practitioner of the Year- Indonesia 2023, Managing IP</h6>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <h6>Leading Individual/Ranked Lawyer, Legal 500; Chambers & Partners</h6>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <h6>Recommended, IAM Patent 1000; WTR 1000</h6>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <h6>IP Star-Trademarks, Managing IP</h6>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+                  <div class="col-md-12 col-sm-6 mb-20 pb-20">
+                    <h4 class="extrabold fblue-soft mb-10">Individual Recognitions</h4>
+
+                        <div class="sidebarArticle">
+                          <ul style="list-style: disc;padding-left: 20px;">
+                          <?php foreach ( $individual_recognitions as $recognitions ) :
+                            ?>
+                              <li>
+                                <h6><?= $recognitions['media']; ?></h6>
+                                <h6><?= $recognitions['title']; ?></h6>
+                              </li>
+                              <?php
+                          endforeach; ?>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <?php
+                endif;
+              ?>
             </div>
 
 
-            <div class="share-holder ver-share fl-wrap mb-40">
+            <div class="share-holder ver-share fl-wrap">
                 <div class="shareTitle">Share</div>
                 <div class="shareContainer isShare"></div>
             </div>
@@ -247,7 +233,7 @@
           </div>
         </div>
       </div>
-      
+
 
     </div>
   </div>

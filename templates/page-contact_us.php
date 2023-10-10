@@ -31,7 +31,12 @@ get_header(); ?>
                         <?= do_shortcode('[contact-form-7 id="5" title="Contact us"]'); ?>
 
                         <div class="w-100 mt-40">
-                            <a href="#" target="_blank" class="downloadCompro"><i class="fa-solid fa-download"></i> Download Company Profile</a>
+                    
+                                                                        <?php $the_query = new WP_Query ( "page_id= 12" ); ?>
+                                      <?php while ($the_query -> have_posts()) : $the_query -> the_post();?>
+                                    <a href="<?php $company_profile = get_post_meta( get_the_ID(), 'input-company_profile', true);
+                                    if(!empty($company_profile)) echo $company_profile; ?>" target="_blank" class="downloadCompro"><i class="fa-solid fa-download"></i> Download Company Profile</a>
+                                    <?php endwhile;?>
                         </div>
                     </div>
                 </div>

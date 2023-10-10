@@ -1,14 +1,14 @@
 <?php
 
 
-  define( 'THEME_VERSION', '2.0' );
+  define( 'THEME_VERSION', '5.0' );
 
   $min = 'false';
 
-  if ($min == 'true') {
-    define( 'MIN', '.min' );
-  }else{
+  if ($min == 'false') {
     define( 'MIN', '' );
+  }else{
+    define( 'MIN', '.min' );
   }
 
 
@@ -58,13 +58,13 @@
     }
   }
 
-  function hide_admin_bar_from_front_end(){
-    if (is_blog_admin()) {
-      return true;
-    }
-    return false;
-  }
-  add_filter( 'show_admin_bar', 'hide_admin_bar_from_front_end' );
+//   function hide_admin_bar_from_front_end(){
+//     if (is_blog_admin()) {
+//       return true;
+//     }
+//     return false;
+//   }
+//   add_filter( 'show_admin_bar', 'hide_admin_bar_from_front_end' );
 
 
   /**
@@ -143,14 +143,14 @@
 
   	wp_enqueue_script( 'js-min', get_template_directory_uri() . '/js/jquery.min.js', array(), THEME_VERSION);
   	wp_enqueue_script( 'js-lozad', get_template_directory_uri() . '/js/lozad.min.js', array(), THEME_VERSION);
-  	wp_enqueue_script( 'js-plugins', get_template_directory_uri() . '/js/plugins.js', array(), THEME_VERSION);
+  	wp_enqueue_script( 'js-plugins', get_template_directory_uri() . '/js/plugins.min.js', array(), THEME_VERSION);
   	wp_enqueue_script( 'js-isotope', get_template_directory_uri() . '/js/isotope.pkgd.js', array(), THEME_VERSION);
 
   	wp_enqueue_script( 'js-scripts', get_template_directory_uri() . '/js/scripts'.MIN.'.js', array(), THEME_VERSION);
 
     wp_enqueue_style( 'style', get_template_directory_uri() . '/style.css', array(), THEME_VERSION );
-		wp_enqueue_style( 'css-plugins', get_template_directory_uri() . '/css/plugins.css', array(), THEME_VERSION );
-		wp_enqueue_style( 'css-style', get_template_directory_uri() . '/css/main'.MIN.'.css', array(), THEME_VERSION );
+	wp_enqueue_style( 'css-plugins', get_template_directory_uri() . '/css/plugins.css', array(), THEME_VERSION );
+	wp_enqueue_style( 'css-style', get_template_directory_uri() . '/css/main'.MIN.'.css', array(), THEME_VERSION );
   }
 
   add_action( 'wp_enqueue_scripts', 'jjp_themes_scripts' );
@@ -228,19 +228,36 @@
 
 
   add_filter('wpcf7_autop_or_not', '__return_false');
+  
+  
+  
+        function wpse10691_alter_query( $query ){
+            if ( $query->is_main_query() && ( $query->is_home() || $query->is_search() || $query->is_archive() )  )
+            {
+                $query->set( 'orderby', 'date' );
+                $query->set( 'post_status', 'publish' );
+                $query->set( 'order', 'ASC' );
+            }
+        }
+        add_action( 'pre_get_posts', 'wpse10691_alter_query' );
 
 
   //Minify HTML
-  //include( INC . '/hooks/hook-minify.php' );
+  include( INC . '/hooks/hook-minify.php' );
 
 
   include( PARTS . '/custom-post/professionals.php' );
   include( PARTS . '/custom-post/testimonials.php' );
 
+  include( PARTS . '/meta/meta-page-head.php' );
+  
   include( PARTS . '/meta/meta-page-homepage.php' );
   include( PARTS . '/meta/meta-professionals.php' );
   include( PARTS . '/meta/meta-page-practice_areas.php' );
+  include( PARTS . '/meta/meta-page-testimonials-h.php' );
   include( PARTS . '/meta/meta-testimonials.php' );
+  include( PARTS . '/meta/meta-our-firm.php' );
+
 
 
   include( PARTS . '/ajax/news.php' );

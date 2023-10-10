@@ -5,6 +5,48 @@
     max-height: 100vh;
     min-height: 600px;
 
+    &.slideN {
+      @media (max-width: $mxtablet) {
+        height: auto;
+        min-height: auto;
+        max-height: unset;
+
+        .swiper-acc {
+          top: 58vw;
+          bottom: unset;
+          flex-direction: column;
+        }
+
+        .swiper-pagination {
+          top: 25px;
+          margin: 0 auto;
+        }
+
+        .swiper-slide {
+          align-items: center;
+          flex-direction: column;
+          display: flex;
+
+          picture {
+            position: relative;
+            padding-top: 70%;
+            width: 100%;
+            overflow: hidden;
+          }
+        }
+
+        .heroSlider-content {
+          position: relative;
+          bottom: 0;
+          width: 100%;
+          max-width: 100%;
+          background: var(--primary);
+          z-index: 1;
+          padding: 60px 15px;
+        }
+      }
+    }
+
     &-content {
       position: absolute;
       width: 100%;
@@ -14,6 +56,7 @@
 
       @media (max-width: $mxtablet) {
         max-width: 580px;
+        bottom: 150px;
       }
 
       h3 {
@@ -57,7 +100,7 @@
 
     &-in {
       padding-left: 30px;
-
+      text-align: justify;
       @media (max-width: $mxtablet) {
         padding-left: 0;
       }
@@ -230,7 +273,7 @@
 
       @media (max-width: $mxtablet) {
         padding-left: 0;
-        @include font-pack($size: 37px);
+        @include font-pack($size: 30px);
       }
 
       @media (max-width: $mstablet) {

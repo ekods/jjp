@@ -7,14 +7,22 @@ get_header(); ?>
 
     <?php get_template_part( 'template-parts/section/_hero' ); ?>
 
+    <?php
+        $side_left = get_post_meta( get_the_ID(), 'head_page-side-left', true);
+        $side_right = get_post_meta( get_the_ID(), 'head_page-side-right', true);
+    ?>
     <div class="pageHead">
       <div class="container">
         <div class="dflex row">
           <div class="col-50">
-            <h2>Covering All Aspects of Indonesian Intellectual Property .</h2>
+            <?php if(!empty($side_left)): ?>
+            <h2><?= $side_left; ?></h2>
+            <?php endif; ?>
           </div>
-          <div class="col-50">
-            <h4>From trademark and patent prosecution to complex IP litigation and everything in between, JJP has you covered across our 8 practice areas. Find out more below.</h4>
+          <div class="col-50 alignjustify">
+            <?php if(!empty($side_right)): ?>
+            <h4><?= $side_right; ?></h4>
+            <?php endif; ?>
           </div>
         </div>
       </div>
@@ -59,7 +67,5 @@ get_header(); ?>
         </div>
       </div>
     </div>
-
-
 
 <?php get_footer(); ?>

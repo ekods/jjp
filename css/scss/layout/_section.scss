@@ -272,6 +272,28 @@
         }
       }
     }
+
+
+    .professionalsList {
+      @media (max-width: $mdtablet) {
+        --gap: 25px;
+        --item: 2;
+      }
+
+      @media (max-width: $mntablet) {
+        --gap: 15px;
+        --item: 2;
+      }
+    }
+
+    .professionalsItem-inner {
+      @media (max-width: $mdtablet) {
+        padding-bottom: 45px;
+      }
+      @media (max-width: $mntablet) {
+        padding-bottom: 26px;
+      }
+    }
   }
 
 

@@ -29,6 +29,19 @@
     width: calc(100% / var(--item) - var(--gap) + (var(--gap) / var(--item)));
     position: relative;
 
+    &:hover {
+      .practiceareasItem-img {
+        img {
+          transform: scale(1.02);
+          filter: none;
+        }
+        &::after {
+          max-blend-mode: none;
+          background-color: transparent;
+        }
+      }
+    }
+
     &-img {
       width: 100%;
       position: relative;

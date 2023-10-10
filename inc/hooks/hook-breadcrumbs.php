@@ -94,19 +94,22 @@ function custom_breadcrumbs() {
 
 
                 // Get last category post is in
-                $last_category = end(array_values($category));
-                //print_r(array_values($category));
+                if( is_array($category) ) {
+                   $last_category = array_values(array_slice($category, -1))[0]= isset(array_values(array_slice($category, -1))[0]) ? array_values(array_slice($category, -1))[0] : ''; ;
+                   
+                   //print_r(array_values(array_slice($category, -1))[0]);
 
-                // Get parent any categories and create array
-                $get_cat_parents = rtrim(get_category_parents($last_category->term_id, true, ','),',');
-                $cat_parents = explode(',',$get_cat_parents);
-
-                // Loop through parent categories and store in variable $cat_display
-                $cat_display = '';
-                foreach($cat_parents as $parents) {
-                    $cat_display .= '<li class="item-cat">'.$parents.'</li>';
-                    if (next($cat_parents)==true) $cat_display .= '<li class="separator"> ' . $separator . ' </li>';
-
+                    // Get parent any categories and create array
+                    $get_cat_parents = rtrim(get_category_parents($last_category->term_id, true, ','),',');
+                    $cat_parents = explode(',',$get_cat_parents);
+    
+                    // Loop through parent categories and store in variable $cat_display
+                    $cat_display = '';
+                    foreach($cat_parents as $parents) {
+                        $cat_display .= '<li class="item-cat">'.$parents.'</li>';
+                        if (next($cat_parents)==true) $cat_display .= '<li class="separator"> ' . $separator . ' </li>';
+    
+                    }
                 }
 
             }
